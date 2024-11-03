@@ -1,0 +1,49 @@
+﻿@model List<DonChamol.Models.Categoria>
+
+<h2>Categorías</h2>
+<a asp-action="Create" class="btn btn-primary">Agregar Nueva Categoría</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var categoria in Model)
+            {
+                <tr>
+                    <td>@categoria.id_Categoria</td>
+                    <td>@categoria.Nombre</td>
+                    <td>@categoria.Descripcion</td>
+                    <td>@(categoria.Estado ? "Activo" : "Inactivo")</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@categoria.id_Categoria" class="btn btn-warning">Editar</a>
+                        <form asp-action="Delete" asp-route-id="@categoria.id_Categoria" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+                        <form asp-action="ToggleEstado" asp-route-id="@categoria.id_Categoria" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-secondary">
+                                @(categoria.Estado ? "Desactivar" : "Activar")
+                            </button>
+                        </form>
+                       
+
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5">No hay categorías disponibles.</td>
+            </tr>
+        }
+    </tbody>
+</table>
