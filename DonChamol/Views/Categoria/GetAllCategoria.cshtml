@@ -3,47 +3,82 @@
 <h2>Categorías</h2>
 <a asp-action="Create" class="btn btn-primary">Agregar Nueva Categoría</a>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Descripción</th>
-            <th>Estado</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model != null && Model.Any())
-        {
-            foreach (var categoria in Model)
+<div class="table-container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var categoria in Model)
+                {
+                    <tr>
+                        <td>@categoria.id_Categoria</td>
+                        <td>@categoria.Nombre</td>
+                        <td>@categoria.Descripcion</td>
+                        <td>@(categoria.Estado ? "Activo" : "Inactivo")</td>
+                        <td class="actions">
+                            <a asp-action="GetCategoriaById" asp-route-id="@categoria.id_Categoria" class="btn btn-warning">Editar</a>
+
+                            <form asp-action="ToggleEstado" asp-route-id="@categoria.id_Categoria" method="post" style="display:inline;">
+                                <button type="submit" class="btn btn-secondary">
+                                    @(categoria.Estado ? "Desactivar" : "Activar")
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            }
+            else
             {
                 <tr>
-                    <td>@categoria.id_Categoria</td>
-                    <td>@categoria.Nombre</td>
-                    <td>@categoria.Descripcion</td>
-                    <td>@(categoria.Estado ? "Activo" : "Inactivo")</td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@categoria.id_Categoria" class="btn btn-warning">Editar</a>
-                        <form asp-action="Delete" asp-route-id="@categoria.id_Categoria" method="post" style="display:inline;">
-                            <button type="submit" class="btn btn-danger">Eliminar</button>
-                        </form>
-                        <form asp-action="ToggleEstado" asp-route-id="@categoria.id_Categoria" method="post" style="display:inline;">
-                            <button type="submit" class="btn btn-secondary">
-                                @(categoria.Estado ? "Desactivar" : "Activar")
-                            </button>
-                        </form>
-                       
-
-                    </td>
+                    <td colspan="5">No hay categorías disponibles.</td>
                 </tr>
             }
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .table-container {
+        max-height: 400px; /* Ajusta esta altura según el diseño deseado */
+        overflow-y: auto;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        /* Fijar el encabezado con línea de división */
+        .table thead {
+            position: sticky;
+            top: 0;
+            background-color: #f8f9fa; /* Color de fondo para el encabezado */
+            z-index: 1;
         }
-        else
-        {
-            <tr>
-                <td colspan="5">No hay categorías disponibles.</td>
-            </tr>
+
+            /* Centrar encabezado de la tabla */
+            .table thead th {
+                border-bottom: 2px solid #ddd;
+                padding: 8px;
+                text-align: center;
+            }
+
+        .table tbody td {
+            padding: 8px;
+            border: 1px solid #ddd;
         }
-    </tbody>
-</table>
+
+            /* Centrar columna de acciones */
+            .table tbody td.actions {
+                text-align: center;
+            }
+</style>
