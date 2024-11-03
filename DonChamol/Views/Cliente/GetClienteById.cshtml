@@ -1,0 +1,53 @@
+﻿@model DonChamol.Models.Cliente
+
+@{
+    ViewBag.Title = "Cliente por ID";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center">Detalles del Cliente</h2>
+
+    @if (Model != null)
+    {
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID de Cliente</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Teléfono</th>
+                        <th>Correo</th>
+                        <th>Dirección</th>
+                        <th>Fecha de Registro</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@Model.id_Cliente</td>
+                        <td>@Model.Nombre</td>
+                        <td>@Model.Apellido</td>
+                        <td>@Model.Telefono</td>
+                        <td>@Model.Correo</td>
+                        <td>@Model.Direccion</td>
+                        <td>@Model.FechaRegistro.ToString("dd/MM/yyyy")</td>
+                        <td>@(Model.Estado ? "Activo" : "Inactivo")</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">¡Cliente No Encontrado!</h4>
+            <p>El cliente que estás buscando no existe. Por favor, verifica el ID y vuelve a intentarlo.</p>
+        </div>
+    }
+
+    <!-- Enlace para volver a la lista de clientes -->
+    <div class="text-center mt-4">
+        <a href="@Url.Action("GetAll", "Cliente")" class="btn btn-primary">Volver a la lista de clientes</a>
+    </div>
+</div>

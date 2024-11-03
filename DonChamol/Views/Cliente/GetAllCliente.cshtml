@@ -1,0 +1,55 @@
+﻿@model List<DonChamol.Models.Cliente>
+
+<h2>Clientes</h2>
+<a asp-action="Create" class="btn btn-primary">Agregar Nuevo Cliente</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Teléfono</th>
+            <th>Correo</th>
+            <th>Dirección</th>
+            <th>Fecha de Registro</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var cliente in Model)
+            {
+                        <tr>
+                            <td>@cliente.id_Cliente</td>
+                            <td>@cliente.Nombre</td>
+                            <td>@cliente.Apellido</td>
+                            <td>@cliente.Telefono</td>
+                            <td>@cliente.Correo</td>
+                            <td>@cliente.Direccion</td>
+                            <td>@cliente.FechaRegistro.ToString("dd/MM/yyyy")</td>
+                            <td>@(cliente.Estado ? "Activo" : "Inactivo")</td>
+                            <td>
+                                <a asp-action="EditClienteById" asp-route-id="@cliente.id_Cliente" class="btn btn-warning">Editar</a>
+                                <form asp-action="DeleteClienteById" asp-route-id="@cliente.id_Cliente" method="post" style="display:inline;">
+                                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                </form>
+                                <form asp-action="ToggleEstado" asp-route-id="@cliente.id_Cliente" method="post" style="display:inline;">
+                                    <button type="submit" class="btn btn-secondary">
+                                @(cliente.Estado ? "Desactivar" : "Activar")
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+            }
+        }
+        else
+        {
+                <tr>
+                    <td colspan="9">No hay clientes disponibles.</td>
+                </tr>
+        }
+    </tbody>
+</table>

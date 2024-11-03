@@ -1,0 +1,52 @@
+﻿@model DonChamol.Models.Cliente
+
+@{
+    ViewData["Title"] = "Eliminar Cliente";
+}
+
+<h2>Eliminar Cliente</h2>
+
+<div class="alert alert-warning">
+    <p>¿Estás seguro de que deseas eliminar este cliente?</p>
+</div>
+
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <td>@Model.id_Cliente</td>
+    </tr>
+    <tr>
+        <th>Nombre</th>
+        <td>@Model.Nombre</td>
+    </tr>
+    <tr>
+        <th>Apellido</th>
+        <td>@Model.Apellido</td>
+    </tr>
+    <tr>
+        <th>Teléfono</th>
+        <td>@Model.Telefono</td>
+    </tr>
+    <tr>
+        <th>Correo</th>
+        <td>@Model.Correo</td>
+    </tr>
+    <tr>
+        <th>Dirección</th>
+        <td>@Model.Direccion</td>
+    </tr>
+    <tr>
+        <th>Fecha de Registro</th>
+        <td>@Model.FechaRegistro.ToString("dd/MM/yyyy")</td>
+    </tr>
+    <tr>
+        <th>Estado</th>
+        <td>@(Model.Estado ? "Activo" : "Inactivo")</td>
+    </tr>
+</table>
+
+<form asp-action="DeleteClienteById" method="post">
+    <input type="hidden" asp-for="id_Cliente" />
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a asp-action="GetAllCliente" class="btn btn-secondary">Cancelar</a>
+</form>
