@@ -1,0 +1,35 @@
+﻿@model DonChamol.Models.Mesas
+
+@{
+    ViewData["Title"] = "Editar Mesa";
+}
+
+<h2>Editar Mesa</h2>
+
+<form asp-action="EditMesaById" method="post">
+    <input asp-for="id_Mesa" type="hidden" />
+
+    <div class="form-group mb-3">
+        <label asp-for="Numero_Mesa" class="form-label">Número de Mesa</label>
+        <input asp-for="Numero_Mesa" class="form-control" required />
+        <span asp-validation-for="Numero_Mesa" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Capacidad" class="form-label">Capacidad</label>
+        <input asp-for="Capacidad" class="form-control" type="number" required />
+        <span asp-validation-for="Capacidad" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Estado" class="form-label">Estado</label>
+        <select asp-for="Estado" class="form-control">
+            <option value="true">Activo</option>
+            <option value="false">Inactivo</option>
+        </select>
+        <span asp-validation-for="Estado" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Actualizar Mesa</button>
+    <a href="@Url.Action("GetAllMesas", "Create")" class="btn btn-secondary">Cancelar</a>
+</form>

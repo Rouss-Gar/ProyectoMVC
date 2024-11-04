@@ -1,0 +1,32 @@
+﻿@model List<DonChamol.Models.Mesas>
+
+@{
+    ViewData["Title"] = "Lista de Mesas";
+}
+
+<h2>Lista de Mesas</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID Mesa</th>
+            <th>Número de Mesa</th>
+            <th>Capacidad</th>
+            <th>Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var mesa in Model)
+        {
+            <tr>
+                <td>@mesa.id_Mesa</td>
+                <td>@mesa.Numero_Mesa</td>
+                <td>@mesa.Capacidad</td>
+                <td>@(mesa.Estado ? "Activo" : "Inactivo")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="@Url.Action("Create","Mesas")" class="btn btn-primary">Agregar Nueva Mesa</a>
+

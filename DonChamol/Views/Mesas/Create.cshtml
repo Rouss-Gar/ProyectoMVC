@@ -1,0 +1,53 @@
+﻿@model Mesas
+
+@{
+    ViewData["Title"] = "Crear Nueva Mesa";
+}
+
+<h2>Crear Nueva Mesa</h2>
+
+<!-- Botón para abrir el modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createMesasModal">
+    Agregar Mesa
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="createMesasModal" tabindex="-1" aria-labelledby="createMesasModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createMesasModalLabel">Nueva Mesa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Create" method="post">
+                    <div class="mb-3">
+                        <label asp-for="Numero_Mesa" class="form-label">Número de Mesa</label>
+                        <input asp-for="Numero_Mesa" class="form-control" required />
+                        <span asp-validation-for="Numero_Mesa" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Capacidad" class="form-label">Capacidad</label>
+                        <input asp-for="Capacidad" class="form-control" required />
+                        <span asp-validation-for="Capacidad" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Estado" class="form-label">Estado</label>
+                        <select asp-for="Estado" class="form-control" required>
+                            <option value="true">Activo</option>
+                            <option value="false">Inactivo</option>
+                        </select>
+                        <span asp-validation-for="Estado" class="text-danger"></span>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Agregar Mesa</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a href="@Url.Action("Index", "Mesas")" class="btn btn-link">Volver a la lista de mesas</a>

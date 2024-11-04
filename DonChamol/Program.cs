@@ -10,6 +10,8 @@ builder.Services.AddScoped<ICategoriaRepository<Categoria>, CategoriaRepository>
 
 builder.Services.AddScoped<IClienteRepository<Cliente>, ClienteRepository>();
 
+builder.Services.AddScoped<IMesasRepository<Mesas>, MesaRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
