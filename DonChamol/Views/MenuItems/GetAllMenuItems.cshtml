@@ -1,0 +1,51 @@
+﻿@model List<DonChamol.Models.MenuItems>
+
+<h2>Menu Items</h2>
+<a asp-action="Create" class="btn btn-primary">Agregar Nuevo Elemento de Menú</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+            <th>Estado</th>
+            <th>Categoría</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var menuItems in Model)
+            {
+                <tr>
+                    <td>@menuItems.id_Menu</td>
+                    <td>@menuItems.Nombre</td>
+                    <td>@menuItems.Descripcion</td>
+                    <td>@menuItems.Precio.ToString("C")</td> <!-- Formato de moneda -->
+                    <td>@(menuItems.Estado ? "Activo" : "Inactivo")</td>
+                    <td>@menuItems.Categoria?.Nombre</td> <!-- Usar la categoría si está cargada -->
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@menuItems.id_Menu" class="btn btn-warning">Editar</a>
+                        <form asp-action="Delete" asp-route-id="@menuItems.id_Menu" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+                        <form asp-action="ToggleEstado" asp-route-id="@menuItems.id_Menu" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-secondary">
+                                @(menuItems.Estado ? "Desactivar" : "Activar")
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="7">No hay elementos de menú disponibles.</td>
+            </tr>
+        }
+    </tbody>
+</table>

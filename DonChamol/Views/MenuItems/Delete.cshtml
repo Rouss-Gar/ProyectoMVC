@@ -1,0 +1,14 @@
+﻿@model DonChamol.Models.MenuItems
+
+<h2>Delete Menu Item</h2>
+
+<div>
+    <h4>Are you sure you want to delete this item?</h4>
+    <h5>@Model.Nombre</h5>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="id_Menu" />
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

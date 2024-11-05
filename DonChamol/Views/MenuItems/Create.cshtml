@@ -1,0 +1,24 @@
+﻿@model DonChamol.Models.MenuItems
+
+<h2>Crear nuevo Menu</h2>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="Nombre"></label>
+        <input asp-for="Nombre" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Descripcion"></label>
+        <textarea asp-for="Descripcion" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="Precio"></label>
+        <input asp-for="Precio" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="id_Categoria"></label>
+        <input asp-for="id_Categoria" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
+

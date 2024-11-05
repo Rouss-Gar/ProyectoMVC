@@ -1,0 +1,46 @@
+﻿@model List<DonChamol.Models.Meseros>
+@{
+    ViewData["Title"] = "Buscar Mesero por Id";
+}
+<h2>Lista de Meseros</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Teléfono</th>
+            <th>Correo</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var meseros in Model)
+        {
+            <tr>
+                <td>@meseros.id_Mesero</td>
+                <td>@meseros.Nombre</td>
+                <td>@meseros.Apellido</td>
+                <td>@meseros.Telefono</td>
+                <td>@meseros.Correo</td>
+                <td>@(meseros.Estado ? "Activo" : "Inactivo")</td>
+                <td>
+                    <a asp-action="GetMeseroById" asp-route-id="@meseros.id_Mesero">Detalles</a> |
+                    <a asp-action="EditMeseroById" asp-route-id="@meseros.id_Mesero">Editar</a> |
+                    <form asp-action="DeleteMeseroById" method="post" style="display:inline;">
+                        <input type="hidden" name="id" value="@meseros.id_Mesero" />
+                        <button type="submit" onclick="return confirm('¿Estás seguro de eliminar este mesero?');">Eliminar</button>
+                    </form> |
+                    <form asp-action="ToggleEstado" method="post" style="display:inline;">
+                        <input type="hidden" name="id" value="@meseros.id_Mesero" />
+                        <button type="submit">@(!meseros.Estado ? "Activar" : "Desactivar")</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create">Agregar Nuevo Mesero</a>

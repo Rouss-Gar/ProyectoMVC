@@ -1,0 +1,53 @@
+﻿@model List<DonChamol.Models.Meseros>
+
+<h2>Meseros</h2>
+<a asp-action="Create" class="btn btn-primary">Agregar Nuevo Mesero</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Teléfono</th>
+            <th>Correo</th>
+            <th>Dirección</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var meseros in Model)
+            {
+                <tr>
+                    <td>@meseros.id_Mesero</td>
+                    <td>@meseros.Nombre</td>
+                    <td>@meseros.Apellido</td>
+                    <td>@meseros.Telefono</td>
+                    <td>@meseros.Correo</td>
+                    <td>@meseros.Direccion</td>
+                    <td>@(meseros.Estado ? "Activo" : "Inactivo")</td>
+                    <td>
+                        <a asp-action="EditMeseroById" asp-route-id="@meseros.id_Mesero" class="btn btn-warning">Editar</a>
+                        <form asp-action="DeleteMeseroById" asp-route-id="@meseros.id_Mesero" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+                        <form asp-action="ToggleEstado" asp-route-id="@meseros.id_Mesero" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-secondary">
+                                @(meseros.Estado ? "Desactivar" : "Activar")
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="9">No hay meseros disponibles.</td>
+            </tr>
+        }
+    </tbody>
+</table>

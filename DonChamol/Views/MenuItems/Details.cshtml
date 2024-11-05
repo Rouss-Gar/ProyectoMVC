@@ -1,0 +1,23 @@
+﻿@model DonChamol.Models.MenuItems
+
+<h2>Menu Item Details</h2>
+
+<div>
+    <h4>@Model.Nombre</h4>
+    <dl class="row">
+        <dt class="col-sm-2">Description</dt>
+        <dd class="col-sm-10">@Model.Descripcion</dd>
+
+        <dt class="col-sm-2">Price</dt>
+        <dd class="col-sm-10">@Model.Precio</dd>
+
+        <dt class="col-sm-2">Status</dt>
+        <dd class="col-sm-10">@((Model.Estado ? "Active" : "Inactive"))</dd>
+
+        <dt class="col-sm-2">Category ID</dt>
+        <dd class="col-sm-10">@Model.id_Categoria</dd>
+    </dl>
+</div>
+
+<a asp-action="Edit" asp-route-id="@Model.id_Menu">Edit</a> |
+<a asp-action="Index">Back to List</a>
