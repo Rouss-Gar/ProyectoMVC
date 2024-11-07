@@ -36,17 +36,7 @@ namespace DonChamol.Controllers
             }
         }
 
-        // GET: Get waiter by name
-        [HttpGet]
-        public IActionResult GetByMeseroName(string nombre)
-        {
-            var meseros = _repository.GetMeseroByName(nombre);
-            if (meseros == null)
-            {
-                return NotFound();
-            }
-            return View(meseros);
-        }
+   
 
         // GET: Show create waiter form
         [HttpGet]
@@ -78,7 +68,7 @@ namespace DonChamol.Controllers
         }
 
         [HttpGet]
-        public IActionResult EditMeseroById(int id)
+        public IActionResult UpdateMesero(int id)
         {
             var meseros = _repository.GetMeseroById(id);
             if (meseros == null)
@@ -88,8 +78,10 @@ namespace DonChamol.Controllers
             return View(meseros);
         }
 
+
+
         [HttpPost]
-        public IActionResult EditMeseroById(Meseros meseros)
+        public IActionResult UpdateMesero(Meseros meseros)
         {
             if (ModelState.IsValid)
             {

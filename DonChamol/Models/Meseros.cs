@@ -2,8 +2,7 @@
 {
     public class Meseros
     {
-        public int id_Mesero { get; set; }
-        public object Id_mesero { get; internal set; }
+        public int id_Mesero { get; set; }       
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string Direccion { get; set; }

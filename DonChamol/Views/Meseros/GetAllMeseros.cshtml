@@ -30,7 +30,7 @@
                     <td>@meseros.Direccion</td>
                     <td>@(meseros.Estado ? "Activo" : "Inactivo")</td>
                     <td>
-                        <a asp-action="EditMeseroById" asp-route-id="@meseros.id_Mesero" class="btn btn-warning">Editar</a>
+                        <a asp-action="UpdateMesero" asp-route-id="@meseros.id_Mesero" class="btn btn-warning">Editar</a>
                         <form asp-action="DeleteMeseroById" asp-route-id="@meseros.id_Mesero" method="post" style="display:inline;">
                             <button type="submit" class="btn btn-danger">Eliminar</button>
                         </form>
@@ -39,6 +39,7 @@
                                 @(meseros.Estado ? "Desactivar" : "Activar")
                             </button>
                         </form>
+                      
                     </td>
                 </tr>
             }
