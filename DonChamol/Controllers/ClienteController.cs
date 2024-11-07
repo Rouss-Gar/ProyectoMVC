@@ -39,17 +39,7 @@ namespace DonChamol.Controllers
         }
 
 
-        // GET: Get client by name
-        [HttpGet]
-        public IActionResult GetByClienteName(string nombre)
-        {
-            var cliente = _repository.GetClienteByName(nombre);
-            if (cliente == null)
-            {
-                return NotFound();
-            }
-            return View(cliente);
-        }
+
         // GET: Show create client form
         [HttpGet]
         public IActionResult Create()

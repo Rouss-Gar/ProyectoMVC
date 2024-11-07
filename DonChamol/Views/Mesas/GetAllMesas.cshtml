@@ -13,6 +13,7 @@
             <th>Número de Mesa</th>
             <th>Capacidad</th>
             <th>Estado</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -23,7 +24,30 @@
                 <td>@mesa.Numero_Mesa</td>
                 <td>@mesa.Capacidad</td>
                 <td>@(mesa.Estado ? "Activo" : "Inactivo")</td>
+
+                <td>
+
+
+
+
+                    <form asp-action="DeleteMesa" asp-route-id="@mesa.id_Mesa" method="post">
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+
+
+                    <form asp-action="ToggleEstado" asp-route-id="@mesa.id_Mesa" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-secondary">
+                            @(mesa.Estado ? "Libre" : "Ocupado")
+                        </button>
+                    </form>
+
+
+
+                </td>
+
+
             </tr>
+
         }
     </tbody>
 </table>

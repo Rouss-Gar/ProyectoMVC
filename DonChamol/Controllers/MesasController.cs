@@ -14,6 +14,30 @@ namespace DonChamol.Controllers
             _repository = repository;
         }
 
+        // GET: /Mesas/Create
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Create new mesa
+        [HttpPost]
+        public IActionResult Create(Mesas mesas)
+        {
+            if (ModelState.IsValid)
+            {
+                // Inserta la nueva mesa en el repositorio
+                _repository.InsertNewMesa(mesas);
+                // Redirige a la lista de mesas después de la creación
+                return RedirectToAction("GetAllMesas");
+            }
+
+            // Si el modelo no es válido, regresa a la vista Create
+            return View(mesas);
+        }
+
+
         [HttpGet]
         public IActionResult GetAllMesas()
         {
@@ -21,41 +45,36 @@ namespace DonChamol.Controllers
             return View(mesas);
         }
 
-        [HttpGet]
-        public IActionResult GetByMesasName(string numeroMesa)
-        {
-            var mesas = _repository.GetByMesaName(numeroMesa);
-            return View("GetByMesasName", mesas);
-        }
-
-        
-
-        [HttpGet]
-        public IActionResult EditMesaById(int id)
-        {
-            var mesas = _repository.GetMesaById(id);
-            if (mesas == null)
-            {
-                return NotFound();
-            }
-            return View("GetByMesasName", mesas);
-        }
 
         [HttpPost]
-        public IActionResult EditMesaById(Mesas mesas)
+        public IActionResult ToggleEstado(int id)
         {
-            if (ModelState.IsValid)
+            var mesas = _repository.GetMesaById(id);
+            if (mesas != null)
             {
-                bool result = _repository.EditMesaById(mesas);
-                if (result)
-                {
-                    return RedirectToAction("GetAllMesas");
-                }
-                ModelState.AddModelError("", "Error al actualizar la mesa.");
+                mesas.Estado = !mesas.Estado;
+                _repository.UpdateMesa(mesas);
             }
-            return View(mesas);
+            return RedirectToAction("GetAllMesas");
         }
 
 
+        [HttpPost]
+        public IActionResult DeleteMesa(int id)
+        {
+            bool isDeleted = _repository.DeleteMesa(id);
+            if (isDeleted)
+            {
+                return RedirectToAction("GetAllMesas");
+            }
+            return RedirectToAction("GetAllMesas"); // Or handle the error appropriately
+        }
     }
+
+
+
+
+
+
+    
 }

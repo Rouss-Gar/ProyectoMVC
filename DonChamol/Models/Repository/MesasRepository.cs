@@ -113,35 +113,7 @@ namespace DonChamol.Models.Repository
             return mesas;
         }
 
-        // Método para editar una mesa por ID
-        public bool EditMesaById(Mesas mesas)
-        {
-            bool result = false;
-
-            using (SqlConnection connection = new SqlConnection(BDConnection.Connection()))
-            {
-                try
-                {
-                    connection.Open();
-                    SqlCommand cmd = new SqlCommand("EditMesaById", connection);
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    cmd.Parameters.AddWithValue("@id_Mesa", mesas.id_Mesa);
-                    cmd.Parameters.AddWithValue("@Numero_Mesa", mesas.Numero_Mesa);
-                    cmd.Parameters.AddWithValue("@Capacidad", mesas.Capacidad);
-                    cmd.Parameters.AddWithValue("@Estado", mesas.Estado);
-
-                    cmd.ExecuteNonQuery();
-                    result = true;
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Error al editar la mesa", ex);
-                }
-            }
-
-            return result;
-        }
+       
         public Mesas GetMesaById(int id)
         {
             Mesas mesas = null;
@@ -176,6 +148,93 @@ namespace DonChamol.Models.Repository
 
             return mesas;
         }
+
+
+
+        public bool UpdateMesa(Mesas mesa)
+        {
+            bool result = false;
+
+            if (mesa != null)
+            {
+                using (SqlConnection connection = new SqlConnection(BDConnection.Connection()))
+                {
+                    try
+                    {
+                        connection.Open();
+                        SqlCommand cmd = new SqlCommand("UpdateMesa", connection);
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@id_Mesa", mesa.id_Mesa);
+                        cmd.Parameters.AddWithValue("@Numero_Mesa", mesa.Numero_Mesa);
+                        cmd.Parameters.AddWithValue("@Capacidad", mesa.Capacidad);
+                        cmd.Parameters.AddWithValue("@Estado", mesa.Estado);
+
+                        SqlParameter outputResult = new SqlParameter("@Result", SqlDbType.Bit)
+                        {
+                            Direction = ParameterDirection.Output
+                        };
+                        cmd.Parameters.Add(outputResult);
+
+                        cmd.ExecuteNonQuery();
+                        result = Convert.ToBoolean(outputResult.Value);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Error al actualizar la mesa", ex);
+                    }
+                }
+            }
+            else
+            {
+                throw new Exception("La mesa con el ID especificado no existe.");
+            }
+
+            return result;
+        }
+
+        public bool DeleteMesa(int idMesa)
+        {
+            bool result = false;
+
+            using (SqlConnection connection = new SqlConnection(BDConnection.Connection()))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("DeleteMesa", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@id_Mesa", idMesa);
+
+                    SqlParameter outputResult = new SqlParameter("@Result", SqlDbType.Bit)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    cmd.Parameters.Add(outputResult);
+
+                    cmd.ExecuteNonQuery();
+                    result = Convert.ToBoolean(outputResult.Value);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error al eliminar la mesa", ex);
+                }
+            }
+
+            return result;
+        }
+
+
+
+
+
+
+
+
+
+
+
 
     }
 }

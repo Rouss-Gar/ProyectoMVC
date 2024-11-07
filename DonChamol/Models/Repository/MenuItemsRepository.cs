@@ -24,25 +24,30 @@ namespace DonChamol.Models.Repository
                     {
                         listMenuItems.Add(new MenuItems()
                         {
-                            id_Menu = Convert.ToInt32(dataReader["id_Menu"]),
-                            Nombre = dataReader["Nombre"].ToString(),
-                            Descripcion = dataReader["Descripcion"].ToString(),
-                            Precio = Convert.ToDecimal(dataReader["Precio"]),
-                            Estado = Convert.ToBoolean(dataReader["Estado"])
+                            id_Menu = dataReader["id_Menu"] != DBNull.Value ? Convert.ToInt32(dataReader["id_Menu"]) : 0,  // Verifica si es nulo
+                            Nombre = dataReader["Nombre"] as string ?? string.Empty,  // Si es nulo, asigna cadena vacía
+                            Descripcion = dataReader["Descripcion"] as string ?? string.Empty,  // Si es nulo, asigna cadena vacía
+                            Precio = dataReader["Precio"] != DBNull.Value ? Convert.ToDecimal(dataReader["Precio"]) : 0m,  // Si es nulo, asigna 0
+                            Estado = dataReader["Estado"] != DBNull.Value && Convert.ToBoolean(dataReader["Estado"]),  // Si es nulo, asigna false
+                            id_Categoria = dataReader["id_Categoria"] != DBNull.Value ? Convert.ToInt32(dataReader["id_Categoria"]) : 0  // Verifica si es nulo
                         });
                     }
                     return listMenuItems;
                 }
-                catch
+                catch (Exception ex)
                 {
-                    return null;
+                    // Aquí podrías registrar el error o agregar detalles adicionales si es necesario
+                    throw new Exception("Error al obtener el item del menú", ex);
                 }
+
             }
         }
 
-        public MenuItems GetMenuItemById(int id)
+
+
+        public MenuItems? GetMenuItemById(int id)
         {
-            MenuItems menuItems = null;
+            MenuItems? menuItems = null;
 
             using (SqlConnection connection = new SqlConnection(BDConnection.Connection()))
             {
@@ -60,11 +65,12 @@ namespace DonChamol.Models.Repository
                         menuItems = new MenuItems()
                         {
                             id_Menu = Convert.ToInt32(dataReader["id_Menu"]),
-                            Nombre = dataReader["Nombre"].ToString(),
-                            Descripcion = dataReader["Descripcion"].ToString(),
+                            Nombre = dataReader["Nombre"]?.ToString() ?? string.Empty,
+                            Descripcion = dataReader["Descripcion"]?.ToString() ?? string.Empty,
                             Precio = Convert.ToDecimal(dataReader["Precio"]),
                             Estado = Convert.ToBoolean(dataReader["Estado"])
                         };
+
                     }
                 }
                 catch (Exception ex)
@@ -76,6 +82,7 @@ namespace DonChamol.Models.Repository
             return menuItems;
         }
 
+
         public bool InsertNewMenuItem(MenuItems menuItems)
         {
             bool result = false;
@@ -85,6 +92,18 @@ namespace DonChamol.Models.Repository
                 try
                 {
                     connection.Open();
+
+                    // Verificar si el id_Categoria existe en la tabla Categoria
+                    SqlCommand checkCmd = new SqlCommand("SELECT COUNT(*) FROM Categoria WHERE id_Categoria = @id_Categoria", connection);
+                    checkCmd.Parameters.AddWithValue("@id_Categoria", menuItems.id_Categoria);
+                    int categoryExists = (int)checkCmd.ExecuteScalar();
+
+                    if (categoryExists == 0)
+                    {
+                        throw new Exception("El id_Categoria especificado no existe en la tabla Categoria.");
+                    }
+
+                    // Insertar nuevo item en la tabla MenuItems
                     SqlCommand cmd = new SqlCommand("InsertNewMenuItem", connection);
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -92,6 +111,7 @@ namespace DonChamol.Models.Repository
                     cmd.Parameters.AddWithValue("@Descripcion", menuItems.Descripcion);
                     cmd.Parameters.AddWithValue("@Precio", menuItems.Precio);
                     cmd.Parameters.AddWithValue("@Estado", menuItems.Estado);
+                    cmd.Parameters.AddWithValue("@id_Categoria", menuItems.id_Categoria);
 
                     SqlParameter outputParam = new SqlParameter("@Result", SqlDbType.Bit)
                     {
@@ -102,6 +122,10 @@ namespace DonChamol.Models.Repository
                     cmd.ExecuteNonQuery();
                     result = Convert.ToBoolean(outputParam.Value);
                 }
+                catch (SqlException sqlEx)
+                {
+                    throw new Exception("Error en la base de datos al insertar el elemento de menú", sqlEx);
+                }
                 catch (Exception ex)
                 {
                     throw new Exception("Error al insertar el item del menú", ex);
@@ -110,6 +134,7 @@ namespace DonChamol.Models.Repository
 
             return result;
         }
+
 
         public bool UpdateMenuItem(MenuItems menuItems)
         {
@@ -121,7 +146,7 @@ namespace DonChamol.Models.Repository
                 {
                     try
                     {
-                        connection.Open();
+                        connection.Open(); 
 
                         // Verificar si el id_Categoria existe en la tabla Categoria
                         SqlCommand checkCmd = new SqlCommand("SELECT 1 FROM Categoria WHERE id_Categoria = @id_Categoria", connection);

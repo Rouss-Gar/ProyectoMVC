@@ -1,0 +1,38 @@
+﻿@model DonChamol.Models.Mesas
+
+@{
+    ViewData["Title"] = "Eliminar Mesa";
+}
+
+<h2>Eliminar Mesa</h2>
+
+<div class="alert alert-warning">
+    <p>¿Estás seguro de que deseas eliminar este cliente?</p>
+</div>
+
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <td>@Model.id_Mesa</td>
+    </tr>
+    <tr>
+        <th>Nombre</th>
+        <td>@Model.Numero_Mesa</td>
+    </tr>
+
+
+    <tr>
+        <th>Dirección</th>
+        <td>@Model.Capacidad</td>
+    </tr>
+    <tr>
+        <th>Estado</th>
+        <td>@(Model.Estado ? "Activo" : "Inactivo")</td>
+    </tr>
+</table>
+
+<form asp-action="DeleteMesa" method="post">
+    <input type="hidden" asp-for="id_Mesa" />
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a asp-action="GetAllMesas" class="btn btn-secondary">Cancelar</a>
+</form>

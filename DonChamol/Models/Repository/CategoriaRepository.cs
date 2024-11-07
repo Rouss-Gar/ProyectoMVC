@@ -25,23 +25,25 @@ namespace DonChamol.Models.Repository
                         listCategorias.Add(new Categoria()
                         {
                             id_Categoria = Convert.ToInt32(dataReader["id_Categoria"]),
-                            Nombre = dataReader["Nombre"].ToString(),
-                            Descripcion = dataReader["Descripcion"].ToString(),
-                            Estado = Convert.ToBoolean(dataReader["Estado"]) // Añadir el campo Estado
+                            Nombre = dataReader["Nombre"]?.ToString() ?? string.Empty,  // Asignar cadena vacía si es nulo
+                            Descripcion = dataReader["Descripcion"]?.ToString() ?? string.Empty, // Asignar cadena vacía si es nulo
+                            Estado = Convert.ToBoolean(dataReader["Estado"])
                         });
                     }
                     return listCategorias;
                 }
                 catch
                 {
-                    return null;
+                    return new List<Categoria>(); // En caso de error, devolver lista vacía
                 }
             }
         }
 
+
+
         public Categoria GetCategoriaById(int id)
         {
-            Categoria categoria = null;
+            Categoria? categoria = null;
             try
             {
                 using (SqlConnection connection = new SqlConnection(BDConnection.Connection()))
@@ -57,8 +59,8 @@ namespace DonChamol.Models.Repository
                         categoria = new Categoria()
                         {
                             id_Categoria = Convert.ToInt32(dataReader["id_Categoria"]),
-                            Nombre = dataReader["Nombre"].ToString(),
-                            Descripcion = dataReader["Descripcion"].ToString(),
+                            Nombre = dataReader["Nombre"]?.ToString() ?? string.Empty,  // Usa cadena vacía si es nulo
+                            Descripcion = dataReader["Descripcion"]?.ToString() ?? string.Empty,  // Usa cadena vacía si es nulo
                             Estado = Convert.ToBoolean(dataReader["Estado"])
                         };
                     }
@@ -69,8 +71,10 @@ namespace DonChamol.Models.Repository
                 throw new Exception("Error al obtener la categoría", ex);
             }
 
-            return categoria;
+            return categoria ?? new Categoria(); // Asegura que no se devuelva null
         }
+
+
 
         public bool InsertNewCategoria(Categoria categoria)
         {

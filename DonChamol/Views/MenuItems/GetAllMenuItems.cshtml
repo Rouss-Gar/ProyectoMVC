@@ -29,7 +29,7 @@
                     <td>@menuItems.Categoria?.Nombre</td> <!-- Usar la categoría si está cargada -->
                     <td>
                         <a asp-action="Edit" asp-route-id="@menuItems.id_Menu" class="btn btn-warning">Editar</a>
-                        <form asp-action="Delete" asp-route-id="@menuItems.id_Menu" method="post" style="display:inline;">
+                        <form asp-action="DeleteMenuItemById" asp-route-id="@menuItems.id_Menu" method="post" style="display:inline;">
                             <button type="submit" class="btn btn-danger">Eliminar</button>
                         </form>
                         <form asp-action="ToggleEstado" asp-route-id="@menuItems.id_Menu" method="post" style="display:inline;">
