@@ -67,6 +67,7 @@ namespace DonChamol.Models.Repository
                             Apellido = dataReader["Apellido"].ToString(),
                             Telefono = dataReader["Telefono"].ToString(),
                             Direccion = dataReader["Direccion"].ToString(),
+                            Correo = dataReader["Correo"].ToString(),
                             Estado = Convert.ToBoolean(dataReader["Estado"])
                         };
                     }
@@ -96,6 +97,7 @@ namespace DonChamol.Models.Repository
                     cmd.Parameters.AddWithValue("@Apellido", mesero.Apellido);
                     cmd.Parameters.AddWithValue("@Telefono", mesero.Telefono);
                     cmd.Parameters.AddWithValue("@Direccion", mesero.Direccion);
+                    cmd.Parameters.AddWithValue("@Correo", mesero.Correo);
                     cmd.Parameters.AddWithValue("@Estado", mesero.Estado);
 
                     cmd.ExecuteNonQuery();
@@ -128,6 +130,7 @@ namespace DonChamol.Models.Repository
                     cmd.Parameters.AddWithValue("@Apellido", mesero.Apellido);
                     cmd.Parameters.AddWithValue("@Telefono", mesero.Telefono);
                     cmd.Parameters.AddWithValue("@Direccion", mesero.Direccion);
+                    cmd.Parameters.AddWithValue("@Correo", mesero.Correo);
                     cmd.Parameters.AddWithValue("@Estado", mesero.Estado);
 
                     int rowsAffected = cmd.ExecuteNonQuery();
