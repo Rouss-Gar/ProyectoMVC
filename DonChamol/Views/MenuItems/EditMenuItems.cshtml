@@ -1,54 +1,33 @@
 ﻿@model DonChamol.Models.MenuItems
 
-@{
-    ViewData["Title"] = "Editar Menú";
-}
-
-<h1>Editar Menú</h1>
-
-<form asp-action="UpdateMenuItemById" method="post">
+<form asp-action="EditMenuItems" method="post">
     <input asp-for="id_Menu" type="hidden" />
 
     <div class="form-group mb-3">
-        <label asp-for="Nombre" class="form-label">Nombre del Menú</label>
+        <label asp-for="Nombre" class="form-label">Nombre</label>
         <input asp-for="Nombre" class="form-control" required />
         <span asp-validation-for="Nombre" class="text-danger"></span>
     </div>
 
     <div class="form-group mb-3">
-        <label asp-for="Descripcion" class="form-label">Descripción</label>
-        <textarea asp-for="Descripcion" class="form-control" required></textarea>
+        <label asp-for="Descripcion" class="form-label">Dirección</label>
+        <input asp-for="Descripcion" class="form-control" required />
         <span asp-validation-for="Descripcion" class="text-danger"></span>
     </div>
 
     <div class="form-group mb-3">
-        <label asp-for="Precio" class="form-label">Precio</label>
-        <input asp-for="Precio" class="form-control" required />
-        <span asp-validation-for="Precio" class="text-danger"></span>
+        <label asp-for="Precio"  class="form-label">Dirección</label>
+        <input asp-for="Precio" type="number" step="0.01" class="form-control" required />
+        <span asp-validation-for="Precio"  class="text-danger"></span>
     </div>
 
-    <div class="form-group mb-3">
-        <label asp-for="Estado" class="form-label">Estado</label>
-        <input asp-for="Estado" type="checkbox" class="form-check-input" />
-        <span asp-validation-for="Estado" class="text-danger"></span>
-    </div>
-
-    <div class="form-group mb-3">
-        <label asp-for="id_Categoria" class="form-label">Categoría</label>
-        <select asp-for="id_Categoria" class="form-control">
-            @foreach (var categoria in ViewBag.Categorias as List<DonChamol.Models.Categoria> ?? new List<DonChamol.Models.Categoria>())
-            {
-                <option value="@categoria.id_Categoria"
-                        selected="@(Model.id_Categoria == categoria.id_Categoria ? "selected" : "")">
-                    @categoria.Nombre
-                </option>
-            }
-
-
+    <div>
+        <label asp-for="Categoria" class="form-label">Categoria</label>
+        <select asp-for="id_Categoria" asp-items="@(new SelectList(ViewBag.Categorias, "id_Categoria", "Nombre", Model.id_Categoria))">
+     
         </select>
         <span asp-validation-for="id_Categoria" class="text-danger"></span>
     </div>
 
-    <button type="submit" class="btn btn-primary">Actualizar</button>
-    <a href="@Url.Action("GetAllMenuItems", "MenuItems")" class="btn btn-secondary">Cancelar</a>
+    <button type="submit">Guardar Cambios</button>
 </form>

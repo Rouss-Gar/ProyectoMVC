@@ -135,77 +135,34 @@ namespace DonChamol.Models.Repository
             return result;
         }
 
-
-        public bool UpdateMenuItem(MenuItems menuItems)
+        public bool EditMenuItem(MenuItems menuItems)
         {
-            bool result = false;
-
-            if (menuItems != null)
+            using (SqlConnection connection = new SqlConnection(BDConnection.Connection()))
             {
-                using (SqlConnection connection = new SqlConnection(BDConnection.Connection()))
+                try
                 {
-                    try
-                    {
-                        connection.Open(); 
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("EditMenuItem", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                        // Verificar si el id_Categoria existe en la tabla Categoria
-                        SqlCommand checkCmd = new SqlCommand("SELECT 1 FROM Categoria WHERE id_Categoria = @id_Categoria", connection);
-                        checkCmd.Parameters.AddWithValue("@id_Categoria", menuItems.id_Categoria);
+                    cmd.Parameters.AddWithValue("@id_Menu", menuItems.id_Menu);
+                    cmd.Parameters.AddWithValue("@Nombre", menuItems.Nombre ?? string.Empty);
+                    cmd.Parameters.AddWithValue("@Descripcion", menuItems.Descripcion ?? string.Empty);
+                    cmd.Parameters.AddWithValue("@Precio", menuItems.Precio);
+                    cmd.Parameters.AddWithValue("@Estado", menuItems.Estado);
+                    cmd.Parameters.AddWithValue("@id_Categoria", menuItems.id_Categoria);
 
-                        object categoriaExists = checkCmd.ExecuteScalar();
-
-                        if (categoriaExists == null)
-                        {
-                            // Lanzar una excepción específica si la categoría no existe
-                            throw new Exception("El id_Categoria especificado no existe en la tabla Categoria.");
-                        }
-
-                        // Procedimiento de actualización si la categoría existe
-                        SqlCommand cmd = new SqlCommand("UpdateMenuItem", connection);
-                        cmd.CommandType = CommandType.StoredProcedure;
-
-                        cmd.Parameters.AddWithValue("@id_Menu", menuItems.id_Menu);
-                        cmd.Parameters.AddWithValue("@Nombre", menuItems.Nombre);
-                        cmd.Parameters.AddWithValue("@Descripcion", menuItems.Descripcion);
-                        cmd.Parameters.AddWithValue("@Precio", menuItems.Precio);
-                        cmd.Parameters.AddWithValue("@Estado", menuItems.Estado);
-                        cmd.Parameters.AddWithValue("@id_Categoria", menuItems.id_Categoria);
-
-                        SqlParameter outputResult = new SqlParameter("@Result", SqlDbType.Bit)
-                        {
-                            Direction = ParameterDirection.Output
-                        };
-                        cmd.Parameters.Add(outputResult);
-
-                        cmd.ExecuteNonQuery();
-                        result = Convert.ToBoolean(outputResult.Value);
-                    }
-                    catch (SqlException sqlEx)
-                    {
-                        throw new Exception("Error en la base de datos al actualizar el elemento de menú", sqlEx);
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new Exception("Error al actualizar el elemento de menú", ex);
-                    }
+                    return cmd.ExecuteNonQuery() > 0;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error al editar el item del menú", ex);
                 }
             }
-            else
-            {
-                throw new Exception("El elemento de menú especificado no existe.");
-            }
-
-            return result;
         }
-
-
-
-
 
         public bool DeleteMenuItemById(int id)
         {
-            bool result = false;
-
             using (SqlConnection connection = new SqlConnection(BDConnection.Connection()))
             {
                 try
@@ -213,56 +170,38 @@ namespace DonChamol.Models.Repository
                     connection.Open();
                     SqlCommand cmd = new SqlCommand("DeleteMenuItemById", connection);
                     cmd.CommandType = CommandType.StoredProcedure;
-
                     cmd.Parameters.AddWithValue("@id_Menu", id);
 
-                    SqlParameter outputResult = new SqlParameter("@Result", SqlDbType.Bit)
-                    {
-                        Direction = ParameterDirection.Output
-                    };
-                    cmd.Parameters.Add(outputResult);
-
-                    cmd.ExecuteNonQuery();
-                    result = Convert.ToBoolean(outputResult.Value);
+                    return cmd.ExecuteNonQuery() > 0;
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Error al eliminar el item del menú", ex);
                 }
             }
-
-            return result;
         }
 
         public bool ToggleEstado(int id)
         {
-            bool result = false;
-
             using (SqlConnection connection = new SqlConnection(BDConnection.Connection()))
             {
                 try
                 {
                     connection.Open();
-                    SqlCommand cmd = new SqlCommand("ToggleEstadoMenuItem", connection);
+                    SqlCommand cmd = new SqlCommand("ToggleMenuItemEstado", connection);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@id_Menu", id);
 
-                    SqlParameter outputResult = new SqlParameter("@Result", SqlDbType.Bit)
-                    {
-                        Direction = ParameterDirection.Output
-                    };
-                    cmd.Parameters.Add(outputResult);
-
-                    cmd.ExecuteNonQuery();
-                    result = Convert.ToBoolean(outputResult.Value);
+                    return cmd.ExecuteNonQuery() > 0;
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Error al cambiar el estado del item del menú", ex);
                 }
             }
-
-            return result;
         }
+
+
+
     }
 }

@@ -12,7 +12,6 @@ namespace DonChamol.Controllers
         private readonly IMenuItemsRepository<MenuItems> _menuItemsRepository;
         private readonly ICategoriaRepository<Categoria> _categoriaRepository;
 
-        // Constructor con las dependencias necesarias
         public MenuItemsController(IMenuItemsRepository<MenuItems> menuItemsRepository,
                                    ICategoriaRepository<Categoria> categoriaRepository)
         {
@@ -23,6 +22,13 @@ namespace DonChamol.Controllers
         public IActionResult GetAllMenuItems()
         {
             var menuItems = _menuItemsRepository.GetAllMenuItems();
+
+            // Asegúrate de que cada menú item tenga su categoría cargada
+            foreach (var item in menuItems)
+            {
+                item.Categoria = _categoriaRepository.GetCategoriaById(item.id_Categoria);
+            }
+
             return View(menuItems);
         }
 
@@ -73,39 +79,38 @@ namespace DonChamol.Controllers
             ViewBag.Categorias = _categoriaRepository.GetAllCategoria();
             return View(menuItems);
         }
-        // GET: Show edit form for menu item by ID
+
         [HttpGet]
-        public IActionResult EditMenuItemById(int id)
+        public IActionResult EditMenuItems(int id)
         {
-            var menuItems = _menuItemsRepository.GetMenuItemById(id);
-            if (menuItems == null)
+            var menuItem = _menuItemsRepository.GetMenuItemById(id);
+            if (menuItem == null)
             {
                 return NotFound();
             }
+
+            // Asegúrate de que las categorías están cargadas en el ViewBag
             ViewBag.Categorias = _categoriaRepository.GetAllCategoria();
-            return View(menuItems);
+            return View(menuItem);
         }
 
-        // POST: Edit menu item by ID
         [HttpPost]
-        public IActionResult EditMenuItemById(MenuItems menuItems)
+        public IActionResult EditMenuItems(MenuItems menuItems)
         {
             if (ModelState.IsValid)
             {
-                bool isUpdated = _menuItemsRepository.UpdateMenuItem(menuItems);
-                if (isUpdated)
+                bool isEdited = _menuItemsRepository.EditMenuItem(menuItems);
+                if (isEdited)
                 {
                     return RedirectToAction("GetAllMenuItems");
                 }
-                ModelState.AddModelError("", "No se pudo actualizar el item del menú.");
             }
-            // Vuelve a cargar las categorías si se vuelve a la vista por error
+
+            // Recargar categorías en caso de fallo de validación
             ViewBag.Categorias = _categoriaRepository.GetAllCategoria();
             return View(menuItems);
         }
 
-
-        // POST: Delete menu item by ID
         [HttpPost]
         public IActionResult DeleteMenuItemById(int id)
         {
@@ -114,21 +119,15 @@ namespace DonChamol.Controllers
             {
                 return RedirectToAction("GetAllMenuItems");
             }
-            ModelState.AddModelError("", "No se pudo eliminar el item del menú.");
             return RedirectToAction("GetAllMenuItems");
         }
 
-        // POST: Toggle menu item status (Active/Inactive)
         [HttpPost]
         public IActionResult ToggleEstado(int id)
         {
-            var menuItems = _menuItemsRepository.GetMenuItemById(id);
-            if (menuItems != null)
-            {
-                menuItems.Estado = !menuItems.Estado;
-                _menuItemsRepository.UpdateMenuItem(menuItems);
-            }
+            bool isToggled = _menuItemsRepository.ToggleEstado(id);
             return RedirectToAction("GetAllMenuItems");
         }
+
     }
 }
