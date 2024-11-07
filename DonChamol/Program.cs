@@ -14,6 +14,8 @@ builder.Services.AddScoped<IMesasRepository<Mesas>, MesaRepository>();
 
 builder.Services.AddScoped<IMenuItemsRepository<MenuItems>, MenuItemsRepository>();
 
+builder.Services.AddScoped<IMeserosRepository<Meseros>, MeserosRepository>();
+
 
 var app = builder.Build();
 
