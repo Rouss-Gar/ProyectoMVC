@@ -1,6 +1,54 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<div class="privacy-container">
+    <h1 class="privacy-title">@ViewData["Title"]</h1>
+    <p class="privacy-text">
+        En esta página puedes consultar la política de privacidad de DonChamol y conocer cómo manejamos tus datos y protegemos tu privacidad.
+    </p>
+</div>
+
+<style>
+    /* Fondo y estilos generales */
+    body {
+        background-color: #111; /* Fondo oscuro */
+        color: #ddd; /* Texto claro */
+        font-family: Arial, sans-serif;
+    }
+
+    /* Contenedor de la política */
+    .privacy-container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #222; /* Fondo un poco más claro */
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 172, 237, 0.3); /* Sombra con toque celeste */
+        text-align: center;
+    }
+
+    /* Título de la página */
+    .privacy-title {
+        font-size: 2.5rem;
+        color: #00aced; /* Color celeste */
+        margin-bottom: 20px;
+    }
+
+    /* Texto de la política */
+    .privacy-text {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #ddd;
+    }
+
+        /* Estilo para los enlaces dentro de la política */
+        .privacy-text a {
+            color: #00aced;
+            text-decoration: none;
+        }
+
+            .privacy-text a:hover {
+                text-decoration: underline;
+            }
+</style>

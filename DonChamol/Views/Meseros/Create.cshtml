@@ -3,6 +3,11 @@
 @{
     ViewData["Title"] = "Crear Nuevo Mesero";
 }
+@if (!ViewData.ModelState.IsValid)
+{
+    <p class="text-danger">Hay errores de validación en el formulario.</p>
+}
+
 
 <h2>Crear Nuevo Mesero</h2>
 
@@ -26,11 +31,7 @@
             <span asp-validation-for="Telefono" class="text-danger"></span>
         </div>
 
-        <div class="mb-3">
-            <label asp-for="Correo" class="form-label">Correo Electrónico</label>
-            <input asp-for="Correo" type="email" class="form-control" required />
-            <span asp-validation-for="Correo" class="text-danger"></span>
-        </div>
+
 
         <div class="mb-3">
             <label asp-for="Direccion" class="form-label">Dirección</label>
@@ -45,4 +46,7 @@
         <button type="submit" class="btn btn-primary">Agregar Mesero</button>
     </form>
 </div>
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
 <a href="@Url.Action("GetAllMeseros", "meseros")" class="btn btn-secondary">Cancelar</a>

@@ -8,37 +8,84 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/DonChamol.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <style>
+        /* Estilos personalizados para el navbar */
+        .navbar-custom {
+            background-color: #111; /* Fondo oscuro */
+            color: #fff;
+        }
+
+            .navbar-custom .navbar-brand {
+                color: #00aced; /* Color celeste para el logo */
+                font-weight: bold;
+            }
+
+            .navbar-custom .navbar-nav .nav-link {
+                color: #ddd;
+                transition: color 0.3s ease, transform 0.3s;
+            }
+
+                .navbar-custom .navbar-nav .nav-link:hover {
+                    color: #00aced;
+                    transform: scale(1.1);
+                }
+
+        /* Centrado de las opciones en el navbar */
+        .navbar-nav-center {
+            display: flex;
+            justify-content: center;
+            flex: 1;
+        }
+
+        /* Espaciado para el navbar-brand */
+        .navbar-brand {
+            margin-right: 20px;
+        }
+
+        /* Ajuste para botón en responsive */
+        .navbar-toggler {
+            border-color: #00aced;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%280, 172, 237, 0.7%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+        }
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-custom navbar-light border-bottom box-shadow mb-3">
             <div class="container-fluid">
+                <!-- Logo a la izquierda -->
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">DonChamol</a>
+
+                <!-- Botón para navbar responsive -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Categoria" asp-action="GetAllCategoria">Categoria</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Cliente" asp-action="GetAllCliente">Clientes</a>
-                        </li>
-                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Mesas" asp-action="GetAllMesas">Mesas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="MenuItems" asp-action="GetAllMenuItems">Menu Items</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Meseros" asp-action="GetAllMeseros">Meseros</a>
-                        </li>
 
+                <!-- Menú centrado -->
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-center">
+                    <ul class="navbar-nav navbar-nav-center">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Categoria" asp-action="GetAllCategoria">Categoria</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Cliente" asp-action="GetAllCliente">Clientes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Mesas" asp-action="GetAllMesas">Mesas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="MenuItems" asp-action="GetAllMenuItems">Menu Items</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Meseros" asp-action="GetAllMeseros">Meseros</a>
+                        </li>
                     </ul>
                 </div>
             </div>

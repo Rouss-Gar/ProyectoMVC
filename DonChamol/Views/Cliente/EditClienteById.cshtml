@@ -44,7 +44,9 @@
         <input asp-for="FechaRegistro" type="date" class="form-control" required />
         <span asp-validation-for="FechaRegistro" class="text-danger"></span>
     </div>
-
+    @section Scripts {
+        @await Html.PartialAsync("_ValidationScriptsPartial")
+    }
     <button type="submit" class="btn btn-primary">Actualizar</button>
     <a href="@Url.Action("GetAllCliente", "Cliente")" class="btn btn-secondary">Cancelar</a>
 </form>

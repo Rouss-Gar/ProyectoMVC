@@ -28,6 +28,8 @@
         </select>
         <span asp-validation-for="id_Categoria" class="text-danger"></span>
     </div>
-
+    @section Scripts {
+        @await Html.PartialAsync("_ValidationScriptsPartial")
+    }
     <button type="submit">Guardar Cambios</button>
 </form>
