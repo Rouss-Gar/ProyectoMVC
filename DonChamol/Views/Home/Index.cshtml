@@ -5,7 +5,7 @@
 <div class="container-fluid bg-dark text-white py-5">
     <!-- Bienvenida -->
     <div class="text-center mb-5">
-        <h1 class="display-4">Bienvenido a Don Chamol</h1>
+        <h1 class="display-4 text-light">Bienvenido a Don Chamol</h1>
         <p class="lead">Descubre la auténtica comida nicaragüense en un ambiente acogedor y tradicional.</p>
         <a href="/Menu" class="btn btn-primary btn-lg custom-button">Ver Menú</a>
     </div>
@@ -16,12 +16,12 @@
             <!-- Card 1: Historia -->
             <div class="col-md-4 mb-4">
                 <div class="card custom-card shadow-sm h-100">
-                    <div class="card-body d-flex flex-column">
+                    <div class="card-body text-dark">
                         <h5 class="card-title">Nuestra Historia</h5>
-                        <p class="card-text flex-grow-1">
+                        <p class="card-text">
                             Fundado en el corazón de Nicaragua, Don Chamol rinde homenaje a la rica cultura gastronómica del país.
                         </p>
-                        <a href="/About" class="btn custom-card-button mt-3">Conoce Más</a>
+                        <a href="/About" class="btn custom-button">Conoce Más</a>
                     </div>
                 </div>
             </div>
@@ -29,12 +29,12 @@
             <!-- Card 2: Platillos Especiales -->
             <div class="col-md-4 mb-4">
                 <div class="card custom-card shadow-sm h-100">
-                    <div class="card-body d-flex flex-column">
+                    <div class="card-body text-dark">
                         <h5 class="card-title">Platillos Especiales</h5>
-                        <p class="card-text flex-grow-1">
+                        <p class="card-text">
                             Saborea nuestros platillos tradicionales, preparados con recetas auténticas y los ingredientes más frescos.
                         </p>
-                        <a href="/Menu" class="btn custom-card-button mt-3">Ver Platillos</a>
+                        <a href="/Menu" class="btn custom-button">Ver Platillos</a>
                     </div>
                 </div>
             </div>
@@ -42,12 +42,12 @@
             <!-- Card 3: Eventos y Reservaciones -->
             <div class="col-md-4 mb-4">
                 <div class="card custom-card shadow-sm h-100">
-                    <div class="card-body d-flex flex-column">
+                    <div class="card-body text-dark">
                         <h5 class="card-title">Eventos y Reservaciones</h5>
-                        <p class="card-text flex-grow-1">
+                        <p class="card-text">
                             Celebra tus momentos especiales en Don Chamol. Ofrecemos un ambiente perfecto para tus eventos.
                         </p>
-                        <a href="/Contact" class="btn custom-card-button mt-3">Reservar Ahora</a>
+                        <a href="/Contact" class="btn custom-button">Reservar Ahora</a>
                     </div>
                 </div>
             </div>
@@ -57,20 +57,20 @@
     <!-- Sección de Información Adicional -->
     <section class="mt-5 py-5">
         <div class="container text-center">
-            <h2 class="display-5">¿Por qué elegir Don Chamol?</h2>
-            <p class="lead mb-4">Ofrecemos una experiencia única de sabores nicaragüenses, tradición y hospitalidad.</p>
+            <h2 class="display-5 text-light">¿Por qué elegir Don Chamol?</h2>
+            <p class="lead mb-4 text-secondary">Ofrecemos una experiencia única de sabores nicaragüenses, tradición y hospitalidad.</p>
             <div class="row">
                 <div class="col-md-4">
                     <h5 class="text-primary">Ambiente Acogedor</h5>
-                    <p>Un espacio diseñado para que te sientas en casa, con una decoración que refleja nuestra cultura.</p>
+                    <p class="text-secondary">Un espacio diseñado para que te sientas en casa, con una decoración que refleja nuestra cultura.</p>
                 </div>
                 <div class="col-md-4">
                     <h5 class="text-primary">Ingredientes Frescos</h5>
-                    <p>Todos nuestros platos se preparan con ingredientes locales de la más alta calidad.</p>
+                    <p class="text-secondary">Todos nuestros platos se preparan con ingredientes locales de la más alta calidad.</p>
                 </div>
                 <div class="col-md-4">
                     <h5 class="text-primary">Atención Amable</h5>
-                    <p>Nuestro personal te atenderá siempre con una sonrisa y dispuesto a ofrecer el mejor servicio.</p>
+                    <p class="text-secondary">Nuestro personal te atenderá siempre con una sonrisa y dispuesto a ofrecer el mejor servicio.</p>
                 </div>
             </div>
         </div>
@@ -88,10 +88,10 @@
             <div class="col-md-4">
                 <h5>Enlaces Rápidos</h5>
                 <ul class="list-unstyled">
-                    <li><a href="/" class="footer-link">Inicio</a></li>
-                    <li><a href="/Menu" class="footer-link">Menú</a></li>
-                    <li><a href="/About" class="footer-link">Nuestra Historia</a></li>
-                    <li><a href="/Contact" class="footer-link">Contacto</a></li>
+                    <li><a href="/" class="text-white">Inicio</a></li>
+                    <li><a href="/Menu" class="text-white">Menú</a></li>
+                    <li><a href="/About" class="text-white">Nuestra Historia</a></li>
+                    <li><a href="/Contact" class="text-white">Contacto</a></li>
                 </ul>
             </div>
             <div class="col-md-4">
@@ -106,130 +106,68 @@
         </div>
     </div>
 </footer>
-
 <style>
-    /* Fondo de toda la página */
-    body {
-        background-color: #1B1C1E;
-    }
 
-    /* Contenedor principal */
-    .container-fluid.bg-dark {
-        padding-top: 5rem;
-        padding-bottom: 5rem;
+    .body {
+    background-color:#111;
     }
-
-    /* Título de bienvenida */
-    .display-4 {
-        color: #FFFAFA;
-        font-weight: 700;
-    }
-
-    .lead {
-        color: #FFFAFA;
+    /* Fondo oscuro general */
+    .bg-dark {
+        background-color: #111 !important;
+        color: #fff;
     }
 
     /* Botones personalizados */
     .custom-button {
-        background-color: #ee6c4d;
+        background-color: #00aced;
         border: none;
-        color: #FFFAFA;
-        padding: 0.7em 1.5em;
-        border-radius: 5px;
+        color: white;
+        box-shadow: 0 5px 10px rgba(0, 172, 237, 0.3);
         transition: background-color 0.3s, transform 0.3s;
-        font-weight: bold;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        box-shadow: 0 4px 8px #e0fbfc;
     }
 
         .custom-button:hover {
-            background-color: #e0fbfc;
+            background-color: #008dbf;
             transform: scale(1.05);
         }
 
-    /* Botones de las tarjetas */
-    .custom-card-button {
-        background-color: #ee6c4d;
-        color: #FFFAFA;
-        padding: 0.5em 1.2em;
-        border-radius: 4px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        transition: background-color 0.3s, transform 0.3s;
-        text-align: center;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-        .custom-card-button:hover {
-            background-color: #e0fbfc;
-            transform: scale(1.05);
-        }
-
-    /* Estilo de tarjetas */
+    /* Cards */
     .custom-card {
-        border: none;
         border-radius: 8px;
-        background-color: #98c1d9;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
-        overflow: hidden;
     }
-
-        .custom-card h5 {
-            color: #fffafa;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
 
         .custom-card:hover {
-            transform: scale(1.03);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            transform: scale(1.02);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
         }
 
     /* Sección de Información Adicional */
     section h2 {
         font-weight: 700;
-        color: #98c1d9;
+        color: #00aced;
     }
 
     section .text-primary {
         font-weight: 600;
-        color: #98c1d9;
     }
 
     section .text-secondary {
-        color: #FFFAFA;
+        color: #ddd;
     }
 
     /* Footer */
-    footer.bg-dark {
-        color: #FFFAFA;
-        padding: 2rem 0;
+    footer a {
+        color: #00aced;
+        text-decoration: none;
     }
 
-    footer h5 {
-        color: #98c1d9;
-        font-weight: 600;
-    }
+        footer a:hover {
+            text-decoration: underline;
+        }
 
     footer p, footer ul {
         font-size: 0.9rem;
-        color: #FFFAFA;
     }
 
-    .footer-link {
-        color: #98c1d9;
-        text-decoration: none;
-        transition: color 0.3s;
-    }
-
-        .footer-link:hover {
-            color: #FFFAFA;
-        }
-
-    .footer .text-center p {
-        font-size: 0.85rem;
-        color: #FFFAFA;
-    }
 </style>
