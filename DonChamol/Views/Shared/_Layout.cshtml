@@ -8,10 +8,12 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/DonChamol.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/estilos.css" />
+
     <style>
         /* Estilos personalizados para el navbar */
         .navbar-custom {
-            background-color: #111; /* Fondo oscuro */
+            background-color: black; /* Fondo oscuro */
             color: #fff;
         }
 
@@ -85,6 +87,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Meseros" asp-action="GetAllMeseros">Meseros</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Pago" asp-action="GetAllPago">Pago</a>
                         </li>
                     </ul>
                 </div>

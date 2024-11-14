@@ -1,0 +1,150 @@
+﻿@model List<Pago>
+
+<h2>Lista de Pagos</h2>
+<a asp-action="Create" class="btn btn-success">Agregar Nuevo Pago</a>
+
+<table class="table-container">
+    <thead>
+        <tr>
+            <th>Id Pago</th>
+            <th>Id Orden</th>
+            <th>Monto</th>
+            <th>Método de Pago</th>
+            <th>Fecha de Pago</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+
+        {
+
+            foreach (var pago in Model)
+
+            {
+                <tr>
+                    <td>@pago.id_Pago</td>
+                    <td>@pago.id_Orden</td>
+                    <td>@pago.Monto.ToString("C")</td>
+                    <td>@pago.MetodoPago</td>
+                    <td>@pago.Fecha_Pago.ToString("dd/MM/yyyy")</td>
+                    <td>
+                        <a asp-action="EditPagoById" asp-route-id="@pago.id_Pago" class="btn btn-warning">Editar</a>
+                    </td>
+                </tr>
+            }
+
+        }
+
+        else
+
+        {
+            <tr>
+                <td colspan="6">No hay pagos disponibles.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<style>
+         Contenedor y estilo general
+    .table-container {
+        max-height: 400px;
+        overflow-y: auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 16px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+     Encabezado *
+    .table thead {
+        position: sticky;
+        top: 0;
+        background-color: #007bff;
+        color: #ffffff;
+        z-index: 1;
+    }
+
+    .table thead th {
+        padding: 12px;
+        font-weight: bold;
+        text-align: center;
+        border-bottom: 2px solid #ddd;
+        text-transform: uppercase;
+    }
+
+     Filas
+    .table tbody tr:nth-child(even) {
+        background-color: #f9fafb;
+    }
+
+    .table tbody tr:hover {
+        background-color: #dbeaff;  Azul claro para hover
+        transition: background-color 0.3s ease;
+    }
+
+    .table tbody td {
+        padding: 12px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+     Botones de Acción
+    .btn-success {
+        background-color: #28a745;
+        border: none;
+        color: #ffffff;
+        padding: 8px 16px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn-success:hover {
+        background-color: #218838;
+        transform: translateY(-1px);
+    }
+
+    .btn-warning {
+        background-color: #ff9800;
+        border: none;
+        color: #ffffff;
+        padding: 8px 16px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn-warning:hover {
+        background-color: #fb8c00;
+        transform: translateY(-1px);
+    }
+
+    .btn-danger {
+        background-color: #f44336;
+        border: none;
+        color: #ffffff;
+        padding: 8px 16px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn-danger:hover {
+        background-color: #e53935;
+        transform: translateY(-1px);
+    }
+
+     Alineación de Acciones
+    .table tbody td.actions {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        }*/
+
+
+</style>

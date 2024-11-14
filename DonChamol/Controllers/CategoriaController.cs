@@ -1,9 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using DonChamol.Models;
+﻿using DonChamol.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DonChamol.Controllers
 {
@@ -23,7 +19,7 @@ namespace DonChamol.Controllers
             return View(categorias);
         }
 
-      
+
 
         [HttpGet]
         public IActionResult GetCategoriaById(int id)
@@ -48,7 +44,7 @@ namespace DonChamol.Controllers
             if (ModelState.IsValid)
             {
                 _repository.InsertNewCategoria(categoria);
-                return RedirectToAction("GetAllCategoria"); 
+                return RedirectToAction("GetAllCategoria");
             }
             return View(categoria);
         }
@@ -88,7 +84,8 @@ namespace DonChamol.Controllers
                 }
                 ModelState.AddModelError("", "No se pudo actualizar la categoría.");
             }
-            return View(categoria); 
+            return View(categoria);
         }
     }
 }
+/*Comentario Random*/
