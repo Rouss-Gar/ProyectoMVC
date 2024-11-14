@@ -3,53 +3,88 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - DonChamol</title>
+    <title>@ViewData["Title"] - DONCHAMOL</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/DonChamol.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
     <style>
-        /* Estilos personalizados para el navbar */
-        .navbar-custom {
-            background-color: #111; /* Fondo oscuro */
-            color: #fff;
-        }
+/* Estilos personalizados para el navbar */
+.navbar-custom {
+    background-color: #3d5a80;
+    color: #FFFAFA;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
 
-            .navbar-custom .navbar-brand {
-                color: #00aced; /* Color celeste para el logo */
-                font-weight: bold;
-            }
+.navbar-custom .navbar-brand {
+    color: #FFFAFA;
+    font-weight: bold;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+}
 
-            .navbar-custom .navbar-nav .nav-link {
-                color: #ddd;
-                transition: color 0.3s ease, transform 0.3s;
-            }
+/* Color de "DONCHAMOL" al pasar el mouse */
+.navbar-custom .navbar-brand:hover {
+    color: #ee6c4d;
+}
 
-                .navbar-custom .navbar-nav .nav-link:hover {
-                    color: #00aced;
-                    transform: scale(1.1);
-                }
+.navbar-custom .navbar-nav .nav-link {
+    color: #FFFAFA;
+    transition: color 0.3s ease, transform 0.2s;
+}
 
-        /* Centrado de las opciones en el navbar */
-        .navbar-nav-center {
-            display: flex;
-            justify-content: center;
-            flex: 1;
-        }
+/* Efecto hover de las demás opciones del navbar */
+.navbar-custom .navbar-nav .nav-link:hover {
+    color: #FFFAFA;
+    transform: scale(1.1);
+}
 
-        /* Espaciado para el navbar-brand */
-        .navbar-brand {
-            margin-right: 20px;
-        }
+/* Agrega el mismo efecto a "Pagos" */
+.navbar-custom .navbar-nav .nav-link.pagos-link:hover {
+    color: #FFFAFA;
+    transform: scale(1.1);
+}
 
-        /* Ajuste para botón en responsive */
-        .navbar-toggler {
-            border-color: #00aced;
-        }
+/* Centrado de las opciones en el navbar */
+.navbar-nav-center {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+}
 
-        .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%280, 172, 237, 0.7%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-        }
+/* Logo del navbar y espaciado */
+.navbar-brand {
+    margin-right: 20px;
+    letter-spacing: 1px;
+}
+
+/* Ajuste para el botón en modo responsive */
+.navbar-toggler {
+    border-color: #FFFAFA;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255, 255, 255, 0.7%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/* Footer personalizado */
+.footer {
+    background-color: #3d5a80;
+    padding: 20px 0;
+    font-size: 0.9em;
+    color: #FFFAFA;
+}
+
+.footer a {
+    color: #6c757d;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer a:hover {
+    color: #03a9f4;
+}
     </style>
 </head>
 <body>
