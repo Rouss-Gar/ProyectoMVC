@@ -142,7 +142,7 @@ namespace DonChamol.Models.Repository
                 try
                 {
                     connection.Open();
-                    SqlCommand cmd = new SqlCommand("EditMenuItem", connection);
+                    SqlCommand cmd = new SqlCommand("usp_UpdateMenuItemById", connection);
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.AddWithValue("@id_Menu", menuItems.id_Menu);
@@ -172,7 +172,16 @@ namespace DonChamol.Models.Repository
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@id_Menu", id);
 
-                    return cmd.ExecuteNonQuery() > 0;
+                    // Agregar el parámetro de salida
+                    SqlParameter resultParam = new SqlParameter("@Result", SqlDbType.Bit);
+                    resultParam.Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(resultParam);
+
+                    cmd.ExecuteNonQuery();
+
+                    // Obtener el valor del parámetro de salida
+                    bool result = Convert.ToBoolean(resultParam.Value);
+                    return result;
                 }
                 catch (Exception ex)
                 {
@@ -180,6 +189,7 @@ namespace DonChamol.Models.Repository
                 }
             }
         }
+
 
         public bool ToggleEstado(int id)
         {
@@ -192,7 +202,16 @@ namespace DonChamol.Models.Repository
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@id_Menu", id);
 
-                    return cmd.ExecuteNonQuery() > 0;
+                    // Agregar el parámetro de salida para obtener el estado actual
+                    SqlParameter estadoParam = new SqlParameter("@Estado", SqlDbType.Bit);
+                    estadoParam.Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(estadoParam);
+
+                    cmd.ExecuteNonQuery();
+
+                    // Obtener el valor de salida
+                    bool estadoActualizado = Convert.ToBoolean(estadoParam.Value);
+                    return estadoActualizado;
                 }
                 catch (Exception ex)
                 {
@@ -200,6 +219,8 @@ namespace DonChamol.Models.Repository
                 }
             }
         }
+
+
 
 
 
