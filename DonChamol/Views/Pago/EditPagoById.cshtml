@@ -1,0 +1,26 @@
+﻿@model DonChamol.Models.Pago
+
+<h2>Editar Pago</h2>
+
+<form asp-action="EditPagoById">
+    <input type="hidden" asp-for="id_Pago" />
+
+    <div class="form-group">
+        <label for="id_Orden">Id Orden</label>
+        <input type="text" class="form-control" asp-for="id_Orden" required />
+    </div>
+    <div class="form-group">
+        <label for="Monto">Monto</label>
+        <input type="number" class="form-control" asp-for="Monto" step="0.01" required />
+    </div>
+    <div class="form-group">
+        <label for="MetodoPago">Método de Pago</label>
+        <input type="text" class="form-control" asp-for="MetodoPago" required />
+    </div>
+    <div class="form-group">
+        <label for="Fecha_Pago">Fecha de Pago</label>
+        <input type="date" class="form-control" asp-for="Fecha_Pago" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Actualizar</button>
+    <a asp-action="GetAllPago" class="btn btn-secondary">Cancelar</a>
+</form>
