@@ -196,6 +196,7 @@ public class OrdenRepository : IOrdenRepository<Orden>
                 cmd.Parameters.AddWithValue("@id_Cliente", orden.id_Cliente);
                 cmd.Parameters.AddWithValue("@id_Mesero", orden.id_Mesero);
                 cmd.Parameters.AddWithValue("@id_Mesa", orden.id_Mesa);
+                cmd.Parameters.AddWithValue("@id_Menu", orden.id_Menu); // Aquí agregamos el id_Menu
                 cmd.Parameters.AddWithValue("@Fecha_Orden", orden.Fecha_Orden);
                 cmd.Parameters.AddWithValue("@Total", orden.Total);
 
@@ -213,6 +214,7 @@ public class OrdenRepository : IOrdenRepository<Orden>
 
         return result;
     }
+
 
 
     List<Orden> IOrdenRepository<Orden>.GetAllOrden()

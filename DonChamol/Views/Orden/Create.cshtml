@@ -11,11 +11,19 @@
     @Html.AntiForgeryToken()
 
     <!-- Selección de Cliente -->
+    <!-- Selección de Cliente -->
     <div class="form-group">
         @Html.LabelFor(m => m.id_Cliente, "Cliente")
-        @Html.DropDownListFor(m => m.id_Cliente, new SelectList(ViewBag.Cliente, "id_Cliente", "Nombre"), "Seleccione un Cliente", new { @class = "form-control" })
+        @Html.DropDownListFor(
+                m => m.id_Cliente,
+                ViewBag.Cliente != null
+                ? new SelectList(ViewBag.Cliente, "id_Cliente", "Nombre")
+                : new SelectList(Enumerable.Empty<SelectListItem>()),
+                "Seleccione un Cliente",
+                new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.id_Cliente, "", new { @class = "text-danger" })
     </div>
+
 
     <!-- Selección de Mesero -->
     <div class="form-group">
@@ -48,6 +56,6 @@
     <!-- Botones -->
     <div class="form-group">
         <button type="submit" class="btn btn-success">Guardar</button>
-        <a href="@Url.Action("Index", "Orden")" class="btn btn-secondary">Cancelar</a>
+        <a href="@Url.Action("GetAllOrdenes", "Orden")" class="btn btn-secondary">Cancelar</a>
     </div>
 }
