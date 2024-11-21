@@ -28,8 +28,6 @@ namespace DonChamol.Models.Repository
                             Nombre = dataReader["Nombre"] as string ?? string.Empty,  // Si es nulo, asigna cadena vacía
                             Descripcion = dataReader["Descripcion"] as string ?? string.Empty,  // Si es nulo, asigna cadena vacía
                             Precio = dataReader["Precio"] != DBNull.Value ? Convert.ToDecimal(dataReader["Precio"]) : 0m,  // Si es nulo, asigna 0
-                            Estado = dataReader["Estado"] != DBNull.Value && Convert.ToBoolean(dataReader["Estado"]),  // Si es nulo, asigna false
-                            id_Categoria = dataReader["id_Categoria"] != DBNull.Value ? Convert.ToInt32(dataReader["id_Categoria"]) : 0  // Verifica si es nulo
                         });
                     }
                     return listMenuItems;

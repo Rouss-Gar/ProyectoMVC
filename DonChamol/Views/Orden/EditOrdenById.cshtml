@@ -1,0 +1,50 @@
+﻿@model Orden
+
+@{
+    ViewData["Title"] = "Editar Orden por ID";
+}
+
+<h2>Editar Orden</h2>
+
+<form asp-action="EditOrdenById" method="post">
+    <!-- Campo oculto para el ID de la orden -->
+    <input asp-for="id_Orden" type="hidden" />
+
+    <div class="form-group mb-3">
+        <label asp-for="id_Cliente" class="form-label">Cliente</label>
+        <select asp-for="id_Cliente" class="form-select" asp-items="ViewBag.Clientes" required>
+            <option value="">Seleccione un cliente</option>
+        </select>
+        <span asp-validation-for="id_Cliente" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="id_Mesero" class="form-label">Mesero</label>
+        <select asp-for="id_Mesero" class="form-select" asp-items="ViewBag.Meseros" required>
+            <option value="">Seleccione un mesero</option>
+        </select>
+        <span asp-validation-for="id_Mesero" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="id_Mesa" class="form-label">Mesa</label>
+        <select asp-for="id_Mesa" class="form-select" asp-items="ViewBag.Mesas" required>
+            <option value="">Seleccione una mesa</option>
+        </select>
+        <span asp-validation-for="id_Mesa" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Fecha_Orden" class="form-label">Fecha de la Orden</label>
+        <input asp-for="Fecha_Orden" type="datetime-local" class="form-control" required />
+        <span asp-validation-for="Fecha_Orden" class="text-danger"></span>
+    </div>
+
+    @section Scripts {
+        @await Html.PartialAsync("_ValidationScriptsPartial")
+    }
+
+    <button type="submit" class="btn btn-primary">Actualizar Orden</button>
+    <a href="@Url.Action("GetAllOrden", "Orden")" class="btn btn-secondary">Cancelar</a>
+</form>
+

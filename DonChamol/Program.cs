@@ -18,6 +18,10 @@ builder.Services.AddScoped<IMeserosRepository<Meseros>, MeserosRepository>();
 
 builder.Services.AddScoped<IPagoRepository<Pago>, PagoRepository>();
 
+builder.Services.AddScoped<IOrdenRepository<Orden>, OrdenRepository>();
+
+
+
 
 var app = builder.Build();
 

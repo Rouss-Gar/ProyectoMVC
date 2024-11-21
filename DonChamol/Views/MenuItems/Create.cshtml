@@ -8,28 +8,28 @@
 
 <div class="container">
     <form asp-action="Create" method="post">
-        <!-- Campo Nombre -->
+       
         <div class="mb-3">
             <label asp-for="Nombre" class="form-label"></label>
             <input asp-for="Nombre" class="form-control" required />
             <span asp-validation-for="Nombre" class="text-danger"></span>
         </div>
 
-        <!-- Campo Descripción -->
+      
         <div class="mb-3">
             <label asp-for="Descripcion" class="form-label"></label>
             <textarea asp-for="Descripcion" class="form-control" required></textarea>
             <span asp-validation-for="Descripcion" class="text-danger"></span>
         </div>
 
-        <!-- Campo Precio -->
+       
         <div class="mb-3">
             <label asp-for="Precio" class="form-label"></label>
             <input asp-for="Precio" class="form-control" required />
             <span asp-validation-for="Precio" class="text-danger"></span>
         </div>
 
-        <!-- Campo Categoría -->
+        
         <div class="mb-3">
             <label asp-for="id_Categoria" class="form-label">Categoría</label>
             <select asp-for="id_Categoria" class="form-control" required>

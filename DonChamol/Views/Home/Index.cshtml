@@ -2,18 +2,18 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="container-fluid bg-dark text-white py-5">
-    <!-- Bienvenida -->
+<div class="container-fluid text-white py-5">
+  
     <div class="text-center mb-5">
         <h1 class="display-4 text-light">Bienvenido a Don Chamol</h1>
         <p class="lead">Descubre la auténtica comida nicaragüense en un ambiente acogedor y tradicional.</p>
         <a href="/Menu" class="btn btn-primary btn-lg custom-button">Ver Menú</a>
     </div>
 
-    <!-- Tarjetas de Información -->
+   
     <div class="container">
         <div class="row">
-            <!-- Card 1: Historia -->
+          
             <div class="col-md-4 mb-4">
                 <div class="card custom-card shadow-sm h-100">
                     <div class="card-body text-dark">
@@ -26,7 +26,7 @@
                 </div>
             </div>
 
-            <!-- Card 2: Platillos Especiales -->
+         
             <div class="col-md-4 mb-4">
                 <div class="card custom-card shadow-sm h-100">
                     <div class="card-body text-dark">
@@ -39,7 +39,7 @@
                 </div>
             </div>
 
-            <!-- Card 3: Eventos y Reservaciones -->
+          
             <div class="col-md-4 mb-4">
                 <div class="card custom-card shadow-sm h-100">
                     <div class="card-body text-dark">
@@ -54,10 +54,10 @@
         </div>
     </div>
 
-    <!-- Sección de Información Adicional -->
+
     <section class="mt-5 py-5">
         <div class="container text-center">
-            <h2 class="display-5 text-light">¿Por qué elegir Don Chamol?</h2>
+            <h2 class="text-bold">¿Por qué elegir Don Chamol?</h2>
             <p class="lead mb-4 text-secondary">Ofrecemos una experiencia única de sabores nicaragüenses, tradición y hospitalidad.</p>
             <div class="row">
                 <div class="col-md-4">
@@ -76,97 +76,114 @@
         </div>
     </section>
 </div>
-
-<!-- Footer -->
-<footer class="bg-dark text-white py-4">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <h5>Don Chamol</h5>
-                <p>El mejor lugar para disfrutar de la auténtica comida nicaragüense.</p>
-            </div>
-            <div class="col-md-4">
-                <h5>Enlaces Rápidos</h5>
-                <ul class="list-unstyled">
-                    <li><a href="/" class="text-white">Inicio</a></li>
-                    <li><a href="/Menu" class="text-white">Menú</a></li>
-                    <li><a href="/About" class="text-white">Nuestra Historia</a></li>
-                    <li><a href="/Contact" class="text-white">Contacto</a></li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <h5>Contacto</h5>
-                <p>Email: info@donchamol.com</p>
-                <p>Teléfono: +505 1234 5678</p>
-                <p>Dirección: Managua, Nicaragua</p>
-            </div>
-        </div>
-        <div class="text-center mt-3">
-            <p>&copy; 2024 Don Chamol. Todos los derechos reservados.</p>
-        </div>
-    </div>
-</footer>
 <style>
-
-    /* styles.css */
- 
+   
     body {
-        background-color: black; /* Cambia el nombre y la ruta de la imagen */
+        background-color: #3D5A80;
     }
 
+  
+    .container-fluid.bg-dark {
+        background-color: #3D5A80;
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+    }
 
+  
+    .display-4 {
+        color: #FFFAFA;
+        font-weight: 700;
+    }
 
-    /* Botones personalizados */
+    .lead {
+        color: #FFFAFA;
+    }
+
+ 
     .custom-button {
-        background-color: #00aced;
+        background-color: #EE6C4D;
         border: none;
         color: white;
-        box-shadow: 0 5px 10px rgba(0, 172, 237, 0.3);
+        padding: 0.7em 1.5em;
+        border-radius: 5px;
         transition: background-color 0.3s, transform 0.3s;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        box-shadow: 0 4px 8px #98C1D9;
     }
 
         .custom-button:hover {
-            background-color: #008dbf;
+            background-color: #98C1D9;
             transform: scale(1.05);
         }
 
-    /* Cards */
+   
     .custom-card {
+        border: 1px solid #98C1D9;
         border-radius: 8px;
+        background-color: #E0FBFC;
+        color: white;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
+        overflow: hidden;
     }
 
-        .custom-card:hover {
-            transform: scale(1.02);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+        .custom-card h5 {
+            color: #EE6C4D;
+            font-weight: 600;
+            text-transform: uppercase;
         }
 
-    /* Sección de Información Adicional */
+        .custom-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 20px #E0FBFC;
+        }
+
+    
     section h2 {
         font-weight: 700;
-        color: #00aced;
+        color: #fffafa;
     }
 
     section .text-primary {
         font-weight: 600;
+        color: #fffafa
     }
 
     section .text-secondary {
-        color: #ddd;
+        color: #fffafa;
     }
 
-    /* Footer */
-    footer a {
-        color: #00aced;
-        text-decoration: none;
+
+    footer.bg-dark {
+        background-color: #181A2F;
+        color: #fffafa;
+        padding: 2rem 0;
     }
 
-        footer a:hover {
-            text-decoration: underline;
-        }
+    footer h5 {
+        color: #3D5A80;
+        font-weight: 600;
+    }
 
     footer p, footer ul {
         font-size: 0.9rem;
+        color: #fffafa;
+    }
+
+    footer a {
+        color: #fffafa;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+        footer a:hover {
+            color: #98C1D9;
+        }
+
+    .footer .text-center p {
+        font-size: 0.85rem;
+        color: #fffafa;
     }
 
 </style>

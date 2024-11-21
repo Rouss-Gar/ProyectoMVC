@@ -1,0 +1,51 @@
+﻿@model IEnumerable<DonChamol.Models.OrdenConDetalles>
+
+@{
+    ViewBag.Title = "Órdenes";
+}
+
+<h2>Órdenes</h2>
+
+<!-- Tabla de órdenes -->
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID Orden</th>
+            <th>Cliente</th>
+            <th>Mesero</th>
+            <th>Mesa</th>
+            <th>Fecha</th>
+            <th>Total</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var orden in Model)
+            {
+                <tr>
+                    <td>@orden.id_Orden</td>
+                    <td>@orden.NombreCliente</td>
+                    <td>@orden.NombreMesero</td>
+                    <td>@orden.id_Mesa</td>
+                    <td>@orden.Fecha.ToString("dd/MM/yyyy")</td>
+                    <td>@orden.Total.ToString("C")</td>
+                    <td>
+                        <a href="@Url.Action("Detalles", "Orden", new { id = orden.id_Orden })" class="btn btn-info btn-sm">Detalles</a>
+                        <a href="@Url.Action("Editar", "Orden", new { id = orden.id_Orden })" class="btn btn-warning btn-sm">Editar</a>
+                        <a href="@Url.Action("Eliminar", "Orden", new { id = orden.id_Orden })" class="btn btn-danger btn-sm">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="7" class="text-center">No hay órdenes registradas.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="@Url.Action("Crear", "Orden")" class="btn btn-primary">Nueva Orden</a>
