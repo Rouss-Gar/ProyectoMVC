@@ -1,11 +1,9 @@
-﻿using DonChamol.Models.Data;
-using DonChamol.Models;
-using System;
-using System.Collections.Generic;
+﻿using DonChamol.Models;
+using DonChamol.Models.Data;
 using System.Data;
 using System.Data.SqlClient;
 
-public class OrdenRepository: IOrdenRepository<Orden>
+public class OrdenRepository : IOrdenRepository<Orden>
 {
     // Obtener lista de clientes
     public List<Cliente> GetAllCliente()
@@ -14,7 +12,7 @@ public class OrdenRepository: IOrdenRepository<Orden>
 
         using (SqlConnection connection = new SqlConnection(BDConnection.Connection()))
         {
-            SqlCommand cmd = new SqlCommand("GetAllCliente", connection);
+            SqlCommand cmd = new SqlCommand("GetAllClientes", connection);
             cmd.CommandType = CommandType.StoredProcedure;
 
             try
@@ -34,7 +32,7 @@ public class OrdenRepository: IOrdenRepository<Orden>
             }
             catch
             {
-                ListClientes = null;
+                return new List<Cliente>();
             }
         }
 
@@ -69,7 +67,7 @@ public class OrdenRepository: IOrdenRepository<Orden>
             }
             catch
             {
-                ordenes = null;
+                return new List<GetAllOrden>();
             }
         }
 
@@ -104,8 +102,9 @@ public class OrdenRepository: IOrdenRepository<Orden>
             }
             catch
             {
-                ListMeseros = null;
+                return new List<Meseros>();
             }
+
         }
 
         return ListMeseros;
@@ -138,7 +137,7 @@ public class OrdenRepository: IOrdenRepository<Orden>
             }
             catch
             {
-                ListMesas = null;
+                return new List<Mesas>();
             }
         }
 
@@ -174,8 +173,9 @@ public class OrdenRepository: IOrdenRepository<Orden>
             }
             catch
             {
-                listMenuItems = null;
+                return new List<MenuItems>();
             }
+
         }
 
         return listMenuItems;
@@ -190,43 +190,30 @@ public class OrdenRepository: IOrdenRepository<Orden>
         {
             using (SqlConnection conn = new SqlConnection(BDConnection.Connection()))
             {
-                SqlCommand cmd = new SqlCommand("InsertOrden", conn);
+                SqlCommand cmd = new SqlCommand("InsertNewOrden", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Parameters.AddWithValue("@id_Cliente", orden.id_Cliente);
                 cmd.Parameters.AddWithValue("@id_Mesero", orden.id_Mesero);
                 cmd.Parameters.AddWithValue("@id_Mesa", orden.id_Mesa);
                 cmd.Parameters.AddWithValue("@Fecha_Orden", orden.Fecha_Orden);
-                cmd.Parameters.Add("@Result", SqlDbType.Bit).Direction = ParameterDirection.Output;
-
-                // Crear tabla para los detalles de la orden
-                DataTable detailsTable = new DataTable();
-                detailsTable.Columns.Add("id_Menu", typeof(int));
-                detailsTable.Columns.Add("Cantidad", typeof(int));
-                detailsTable.Columns.Add("Precio", typeof(decimal));
-
-                foreach (var detalle in ordenDetalles)
-                {
-                    detailsTable.Rows.Add(detalle.id_Menu, detalle.Cantidad, detalle.Precio);
-                }
-
-                SqlParameter detailsParam = cmd.Parameters.AddWithValue("@OrdenDetalles", detailsTable);
-                detailsParam.SqlDbType = SqlDbType.Structured;
-                detailsParam.TypeName = "dbo.OrdenDetallesType";
+                cmd.Parameters.AddWithValue("@Total", orden.Total);
 
                 conn.Open();
-                cmd.ExecuteNonQuery();
+                int rowsAffected = cmd.ExecuteNonQuery();
 
-                result = Convert.ToBoolean(cmd.Parameters["@Result"].Value);
+                result = rowsAffected > 0;
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            result = false;
+            // Manejo de errores (puedes registrar el error si es necesario).
+            Console.WriteLine($"Error al insertar la orden: {ex.Message}");
         }
 
         return result;
     }
+
 
     List<Orden> IOrdenRepository<Orden>.GetAllOrden()
     {

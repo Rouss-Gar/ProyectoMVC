@@ -10,3 +10,4 @@ namespace DonChamol.Models
         public List<MenuDto> MenuItems { get; set; }
     }
 }
+

@@ -1,51 +1,53 @@
-﻿@model IEnumerable<DonChamol.Models.OrdenConDetalles>
+﻿@model DonChamol.Models.Orden
 
 @{
-    ViewBag.Title = "Órdenes";
+    ViewBag.Title = "Crear Orden";
 }
 
-<h2>Órdenes</h2>
+<h2>Crear Orden</h2>
 
-<!-- Tabla de órdenes -->
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>ID Orden</th>
-            <th>Cliente</th>
-            <th>Mesero</th>
-            <th>Mesa</th>
-            <th>Fecha</th>
-            <th>Total</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model != null && Model.Any())
-        {
-            foreach (var orden in Model)
-            {
-                <tr>
-                    <td>@orden.id_Orden</td>
-                    <td>@orden.NombreCliente</td>
-                    <td>@orden.NombreMesero</td>
-                    <td>@orden.id_Mesa</td>
-                    <td>@orden.Fecha.ToString("dd/MM/yyyy")</td>
-                    <td>@orden.Total.ToString("C")</td>
-                    <td>
-                        <a href="@Url.Action("Detalles", "Orden", new { id = orden.id_Orden })" class="btn btn-info btn-sm">Detalles</a>
-                        <a href="@Url.Action("Editar", "Orden", new { id = orden.id_Orden })" class="btn btn-warning btn-sm">Editar</a>
-                        <a href="@Url.Action("Eliminar", "Orden", new { id = orden.id_Orden })" class="btn btn-danger btn-sm">Eliminar</a>
-                    </td>
-                </tr>
-            }
-        }
-        else
-        {
-            <tr>
-                <td colspan="7" class="text-center">No hay órdenes registradas.</td>
-            </tr>
-        }
-    </tbody>
-</table>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
-<a href="@Url.Action("Crear", "Orden")" class="btn btn-primary">Nueva Orden</a>
+    <!-- Selección de Cliente -->
+    <div class="form-group">
+        @Html.LabelFor(m => m.id_Cliente, "Cliente")
+        @Html.DropDownListFor(m => m.id_Cliente, new SelectList(ViewBag.Cliente, "id_Cliente", "Nombre"), "Seleccione un Cliente", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.id_Cliente, "", new { @class = "text-danger" })
+    </div>
+
+    <!-- Selección de Mesero -->
+    <div class="form-group">
+        @Html.LabelFor(m => m.id_Mesero, "Mesero")
+        @Html.DropDownListFor(m => m.id_Mesero, new SelectList(ViewBag.Meseros, "id_Mesero", "Nombre"), "Seleccione un Mesero", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.id_Mesero, "", new { @class = "text-danger" })
+    </div>
+
+    <!-- Selección de Mesa -->
+    <div class="form-group">
+        @Html.LabelFor(m => m.id_Mesa, "Mesa")
+        @Html.DropDownListFor(m => m.id_Mesa, new SelectList(ViewBag.Mesas, "id_Mesa", "Numero"), "Seleccione una Mesa", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.id_Mesa, "", new { @class = "text-danger" })
+    </div>
+
+    <!-- Selección del menu -->
+    <div class="form-group">
+        @Html.LabelFor(m => m.id_Menu, "Menú")
+        @Html.DropDownListFor(m => m.id_Menu, new SelectList(ViewBag.MenuItems, "id_Menu", "Nombre"), "Seleccione un Menú", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.id_Menu, "", new { @class = "text-danger" })
+    </div>
+
+    <!-- Campo de Total (si es necesario) -->
+    <div class="form-group">
+        @Html.LabelFor(m => m.Total, "Total")
+        @Html.EditorFor(m => m.Total, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(m => m.Total, "", new { @class = "text-danger" })
+    </div>
+
+    <!-- Botones -->
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Guardar</button>
+        <a href="@Url.Action("Index", "Orden")" class="btn btn-secondary">Cancelar</a>
+    </div>
+}
