@@ -1,0 +1,63 @@
+﻿@model DonChamol.Models.Proveedor
+
+@{
+    ViewData["Title"] = "Editar Proveedor";
+}
+
+<h1>Editar Proveedor</h1>
+
+<form asp-action="EditProveedor" method="post">
+    <!-- Campo oculto para el ID del proveedor -->
+    <input asp-for="id_proveedor" type="hidden" />
+
+    <div class="form-group">
+        <label asp-for="nombre" class="control-label">Nombre</label>
+        <input asp-for="nombre" class="form-control" required />
+        <span asp-validation-for="nombre" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="apellido">Apellido</label>
+        <input asp-for="apellido" class="form-control" required />
+        <span asp-validation-for="apellido" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="direccion" class="control-label">Dirección</label>
+        <input asp-for="direccion" class="form-control" required />
+        <span asp-validation-for="direccion" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="telefono" class="control-label">Teléfono</label>
+        <input asp-for="telefono" class="form-control" required />
+        <span asp-validation-for="telefono" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="correo" class="control-label">Correo</label>
+        <input asp-for="correo" class="form-control" required />
+        <span asp-validation-for="correo" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="estado" class="control-label">Estado</label>
+        <select asp-for="estado" class="form-control" required>
+            <option value="">Seleccione un estado</option>
+            <option value="true">Activo</option>
+            <option value="false">Inactivo</option>
+        </select>
+        <span asp-validation-for="estado" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Actualizar</button>
+    <a href="@Url.Action("GetAll", "Proveedor")" class="btn btn-secondary">Cancelar</a>
+</form>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

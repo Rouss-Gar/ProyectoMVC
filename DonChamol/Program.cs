@@ -20,6 +20,10 @@ builder.Services.AddScoped<IPagoRepository<Pago>, PagoRepository>();
 
 builder.Services.AddScoped<IOrdenRepository<Orden>, OrdenRepository>();
 
+builder.Services.AddScoped<IProducto<Producto>, ProductoRepository>();  
+
+builder.Services.AddScoped<IProveedor<Proveedor>, ProveedorRepository>();   
+
 
 
 

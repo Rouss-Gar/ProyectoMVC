@@ -1,0 +1,56 @@
+﻿@model DonChamol.Models.Producto
+
+@{
+    ViewData["Title"] = "Eliminar Producto";
+}
+
+<h1>Eliminar Producto</h1>
+
+<h3>¿Estás seguro que quieres eliminar este producto?</h3>
+
+<div>
+    <h4>Detalles del Producto</h4>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.id_producto)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.id_producto)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.nombre_producto)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.nombre_producto)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.descripcion)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.descripcion)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.fecha_vencimiento)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.fecha_vencimiento)
+        </dd>
+        <dt class="col-sm-2">
+            Estado
+        </dt>
+        <dd class="col-sm-10">
+            <span class="badge @(Model.estado ? "bg-success" : "bg-warning")">
+                @(Model.estado ? "Activo" : "Inactivo")
+            </span>
+        </dd>
+    </dl>
+
+    <form asp-action="DeleteConfirmed" method="post">
+        <input type="hidden" asp-for="id_producto" />
+        <input type="submit" value="Eliminar" class="btn btn-danger" />
+        <a href="@Url.Action("GetAll", "Producto")" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>

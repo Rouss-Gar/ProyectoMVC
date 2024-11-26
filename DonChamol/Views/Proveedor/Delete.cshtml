@@ -1,0 +1,70 @@
+﻿@model DonChamol.Models.Proveedor
+
+@{
+    ViewData["Title"] = "Eliminar Proveedor";
+}
+
+<h1>Eliminar Proveedor</h1>
+
+<h3>¿Estás seguro que quieres eliminar este proveedor?</h3>
+
+<div>
+    <h4>Detalles del Proveedor</h4>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.id_proveedor)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.id_proveedor)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.nombre)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.apellido) 
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.apellido)     
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.direccion)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.direccion)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.telefono)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.telefono)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.correo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.correo)
+        </dd>
+        <dt class="col-sm-2">
+            Estado
+        </dt>
+        <dd class="col-sm-10">
+            <span class="badge @(Model.estado ? "bg-success" : "bg-warning")">
+                @(Model.estado ? "Activo" : "Inactivo")
+            </span>
+        </dd>
+    </dl>
+
+    <form asp-action="DeleteConfirmed" method="post">
+        <input asp-for="id_proveedor" type="hidden"/>
+        <input type="submit" value="Eliminar" class="btn btn-danger" />
+        <a href="@Url.Action("GetAll", "Proveedor")" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>

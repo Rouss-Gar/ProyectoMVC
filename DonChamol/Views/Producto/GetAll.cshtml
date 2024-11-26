@@ -1,0 +1,68 @@
+﻿@model IEnumerable<Producto>
+@{
+    ViewData["Title"] = "Lista de Productos";
+}
+
+<h1>Lista de Productos</h1>
+
+<!-- Botón para agregar un nuevo producto -->
+<a href="@Url.Action("Create", "Producto")" class="btn btn-success mb-3">
+    <i class="fas fa-plus"></i>
+</a>
+
+<table class="table table-striped table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th style="font-size: 0.8em; font-weight: bold;"><i class="fas fa-hashtag"></i> ID</th>
+            <th style="font-size: 0.8em; font-weight: bold;"><i class="fas fa-tag"></i> Nombre</th>
+            <th style="font-size: 0.8em; font-weight: bold;"><i class="fas fa-align-left"></i> Descripción</th>
+            <th style="font-size: 0.8em; font-weight: bold;"><i class="fas fa-calendar-alt"></i> Fecha de Vencimiento</th>
+            <th style="font-size: 0.8em; font-weight: bold;"><i class="fas fa-check-circle"></i> Estado</th>
+            <th style="font-size: 0.8em; font-weight: bold;"><i class="fas fa-cogs"></i> Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var producto in Model)
+            {
+                <tr>
+                    <td style="font-size: 0.8em; font-weight: bold;"><i class="fas fa-hashtag"></i> @producto.id_producto</td>
+                    <td style="font-size: 0.8em; font-weight: bold;"><i class="fas fa-tag"></i> @producto.nombre_producto?.Trim()</td>
+                    <td style="font-size: 0.8em; font-weight: bold;"><i class="fas fa-align-left"></i> @producto.descripcion?.Trim()</td>
+                    <td style="font-size: 0.8em; font-weight: bold;"><i class="fas fa-calendar-alt"></i> @producto.fecha_vencimiento?.ToString("dd/MM/yyyy")</td>
+                    <td style="font-size: 0.8em;">
+                        <button class="btn @(producto.estado ? "btn-success" : "btn-warning")" style="width: 100%; font-weight: bold;">
+                            <i class="fas @(producto.estado ? "fa-check" : "fa-times")"></i>
+                        </button>
+                    </td>
+                    <td style="font-size: 0.8em;">
+                        <a href="@Url.Action("Edit", "Producto", new { idProducto = producto.id_producto })" class="btn btn-primary btn-sm" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        |
+                        <a href="@Url.Action("GetById", "Producto", new { id = producto.id_producto })" class="btn btn-info btn-sm" title="Detalles">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+                        |
+                        <a href="@Url.Action("Delete", "Producto", new { id_producto = producto.id_producto })" class="btn btn-danger btn-sm" title="Dar de baja">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                        |
+                        <!-- Botón para cambiar el estado con icono de encendido/apagado -->
+                        <a href="@Url.Action("ToggleStatus", "Producto", new { id = producto.id_producto })" class="btn btn-secondary btn-sm" title="Cambiar Estado">
+                            <i class="fas @(producto.estado ? "fa-toggle-on" : "fa-toggle-off")"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="9" style="font-size: 0.8em; font-weight: bold;">No hay productos disponibles.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

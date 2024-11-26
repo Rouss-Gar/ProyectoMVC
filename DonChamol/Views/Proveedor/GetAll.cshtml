@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Proveedor>
+
+@{
+    ViewData["Title"] = "Lista de Proveedores";
+}
+
+<h1>Lista de Proveedores</h1>
+
+<!-- Botón para agregar un nuevo proveedor -->
+<a href="@Url.Action("Create", "Proveedor")" class="btn btn-success mb-3">
+    <i class="fas fa-plus"></i> Agregar
+</a>
+
+<table class="table table-striped table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th style="font-size: 0.8em; font-weight: bold;">ID</th>
+            <th style="font-size: 0.8em; font-weight: bold;">Nombre</th>
+            <th style="font-size: 0.8em; font-weight: bold;">Apellido</th>
+            <th style="font-size: 0.8em; font-weight: bold;">Dirección</th>
+            <th style="font-size: 0.8em; font-weight: bold;">Teléfono</th>
+            <th style="font-size: 0.8em; font-weight: bold;">Email</th>
+            <th style="font-size: 0.8em; font-weight: bold;">Estado</th>
+            <th style="font-size: 0.8em; font-weight: bold;">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var proveedor in Model)
+            {
+                <tr>
+                    <td style="font-size: 0.8em; font-weight: bold;"><i class="fas fa-hashtag"></i> @proveedor.id_proveedor</td>
+                    <td style="font-size: 0.8em; font-weight: bold;"><i class="fas fa-user"></i> @proveedor.nombre?.Trim()</td>
+                    <td style="font-size: 0.8em; font-weight: bold;"><i class="fas fa-user"></i> @proveedor.apellido?.Trim()</td>
+                    <td style="font-size: 0.8em; font-weight: bold;"><i class="fas fa-map-marker-alt"></i> @proveedor.direccion?.Trim()</td>
+                    <td style="font-size: 0.8em; font-weight: bold;"><i class="fas fa-phone"></i> @proveedor.telefono?.Trim()</td>
+                    <td style="font-size: 0.8em; font-weight: bold;"><i class="fas fa-envelope"></i> @proveedor.correo?.Trim()</td>
+                    <td style="font-size: 0.8em;">
+                        <button class="btn @(proveedor.estado ? "btn-success" : "btn-warning")" style="width: 100%; font-weight: bold;">
+                            <i class="fas @(proveedor.estado ? "fa-check" : "fa-times")"></i>
+                        </button>
+                    </td>
+                    <td style="font-size: 0.8em;">
+                        <a href="@Url.Action("EditProveedor", "Proveedor", new { id = proveedor.id_proveedor })" class="btn btn-primary btn-sm" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        |
+                        <a href="@Url.Action("GetById", "Proveedor", new { id = proveedor.id_proveedor })" class="btn btn-info btn-sm" title="Detalles">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+                        |
+                        <a href="@Url.Action("Delete", "Proveedor", new { id_proveedor = proveedor.id_proveedor })" class="btn btn-danger btn-sm" title="Dar de baja">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                        |
+                        <a href="@Url.Action("ToggleStatus", "Proveedor", new { id = proveedor.id_proveedor })" class="btn btn-secondary btn-sm" title="Cambiar Estado">
+                            <i class="fas @(proveedor.estado ? "fa-toggle-on" : "fa-toggle-off")"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="8" style="font-size: 0.8em; font-weight: bold;">No hay proveedores disponibles.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
