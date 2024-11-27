@@ -1,169 +1,208 @@
 ﻿@model List<DonChamol.Models.Cliente>
 
-<h2>Clientes</h2>
-<a asp-action="Create" class="btn btn-primary">Agregar Nuevo Cliente</a>
+@{
+    ViewData["Title"] = "Lista de Clientes";
+    ViewData["ShowFooter"] = false;
+}
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Teléfono</th>
-            <th>Correo</th>
-            <th>Dirección</th>
-            <th>Fecha de Registro</th>
-            <th>Estado</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model != null && Model.Any())
-        {
-            foreach (var cliente in Model)
-            {
-                        <tr>
-                            <td>@cliente.id_Cliente</td>
-                            <td>@cliente.Nombre</td>
-                            <td>@cliente.Apellido</td>
-                            <td>@cliente.Telefono</td>
-                            <td>@cliente.Correo</td>
-                            <td>@cliente.Direccion</td>
-                            <td>@cliente.FechaRegistro.ToString("dd/MM/yyyy")</td>
-                            <td>@(cliente.Estado ? "Activo" : "Inactivo")</td>
-                            <td>
-                                <a asp-action="EditClienteById" asp-route-id="@cliente.id_Cliente" class="btn btn-warning">Editar</a>
-                                <form asp-action="DeleteClienteById" asp-route-id="@cliente.id_Cliente" method="post" style="display:inline;">
-                                    <button type="submit" class="btn btn-danger">Eliminar</button>
-                                </form>
-                                <form asp-action="ToggleEstado" asp-route-id="@cliente.id_Cliente" method="post" style="display:inline;">
-                                    <button type="submit" class="btn btn-secondary">
-                                @(cliente.Estado ? "Desactivar" : "Activar")
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-            }
-        }
-        else
-        {
+<h1 class="title">Lista de Clientes</h1>
+
+<!-- Botón para agregar un nuevo cliente -->
+<a asp-action="Create" class="btn btn-add-category">
+    <i class="fas fa-plus"></i> Agregar Nuevo Cliente
+</a>
+
+<div class="table-container">
+    <table class="table">
+        <thead>
             <tr>
-                <td colspan="9">No hay clientes disponibles.</td>
+                <th><i class="fas fa-hashtag"></i> ID</th>
+                <th><i class="fas fa-user"></i> Nombre</th>
+                <th><i class="fas fa-user"></i> Apellido</th>
+                <th><i class="fas fa-phone"></i> Teléfono</th>
+                <th><i class="fas fa-envelope"></i> Correo</th>
+                <th><i class="fas fa-map-marker-alt"></i> Dirección</th>
+                <th><i class="fas fa-calendar-alt"></i> Fecha de Registro</th>
+                <th><i class="fas fa-check-circle"></i> Estado</th>
+                <th><i class="fas fa-cogs"></i> Acciones</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var cliente in Model)
+                {
+                    <tr>
+                        <td>@cliente.id_Cliente</td>
+                        <td>@cliente.Nombre?.Trim()</td>
+                        <td>@cliente.Apellido?.Trim()</td>
+                        <td>@cliente.Telefono?.Trim()</td>
+                        <td>@cliente.Correo?.Trim()</td>
+                        <td>@cliente.Direccion?.Trim()</td>
+                        <td>@cliente.FechaRegistro.ToString("dd/MM/yyyy")</td>
+                        <td>
+                            <button class="btn @(cliente.Estado ? "btn-success" : "btn-warning")">
+                                <i class="fas @(cliente.Estado ? "fa-check" : "fa-times")"></i>
+                                @(cliente.Estado ? "Activo" : "Inactivo")
+                            </button>
+                        </td>
+                        <td class="actions">
+                            <a asp-action="EditClienteById" asp-route-id="@cliente.id_Cliente" class="btn btn-primary btn-sm" title="Editar">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            |
+                            <a asp-action="DeleteClienteById" asp-route-id="@cliente.id_Cliente" class="btn btn-danger btn-sm" title="Eliminar">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                            |
+                            <form asp-action="ToggleEstado" asp-route-id="@cliente.id_Cliente" method="post" style="display:inline;">
+                                <button type="submit" class="btn btn-secondary btn-sm" title="Cambiar Estado">
+                                    <i class="fas @(cliente.Estado ? "fa-toggle-on" : "fa-toggle-off")"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="9" class="no-data">No hay clientes disponibles.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
 <style>
-    
-.table-container {
-    max-height: 400px;
-    overflow-y: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+    /* Estilos Generales */
+    .title {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
 
-.table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 16px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    overflow: hidden;
-}
+    /* Contenedor de la tabla con barra de desplazamiento */
+    .table-container {
+        max-height: 400px;
+        overflow-y: auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-top: 1rem;
+        border: 1px solid #ddd;
+    }
 
-.table thead {
-    position: sticky;
-    top: 0;
-    background-color: #007bff;
-    color: #ffffff;
-    z-index: 1;
-}
+        .table-container::-webkit-scrollbar {
+            width: 8px;
+        }
 
-.table thead th {
-    padding: 12px;
-    font-weight: bold;
-    text-align: center;
-    border-bottom: 2px solid #ddd;
-    text-transform: uppercase;
-}
+        .table-container::-webkit-scrollbar-thumb {
+            background: #007bff;
+            border-radius: 4px;
+        }
 
+            .table-container::-webkit-scrollbar-thumb:hover {
+                background: #0056b3;
+            }
 
-.table tbody tr:nth-child(even) {
-    background-color: #f9fafb;
-}
+        .table-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
 
-.table tbody tr:hover {
-    background-color: #e6f2ff;
-    transition: background-color 0.3s ease;
-}
+    /* Tabla */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 1rem;
+        background-color: #ffffff;
+        border-radius: 8px;
+        overflow: hidden;
+    }
 
-.table tbody td {
-    padding: 12px;
-    text-align: center;
-    border-bottom: 1px solid #ddd;
-}
+        .table thead {
+            position: sticky;
+            top: 0;
+            background-color: #007bff;
+            color: #ffffff;
+            z-index: 1;
+        }
 
+            .table thead th {
+                padding: 12px;
+                font-weight: bold;
+                text-align: center;
+                text-transform: uppercase;
+            }
 
-.btn-primary {
-    background-color: #007bff;
-    border: none;
-    color: #ffffff;
-    padding: 8px 16px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
+        .table tbody tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
 
-.btn-primary:hover {
-    background-color: #0056b3;
-    transform: translateY(-1px);
-}
+        .table tbody tr:hover {
+            background-color: #e6f2ff;
+            transition: background-color 0.3s ease;
+        }
 
-.btn-warning {
-    background-color: #ffc107;
-    border: none;
-    color: #212529;
-    padding: 8px 16px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
+        .table tbody td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
 
-.btn-warning:hover {
-    background-color: #e0a800;
-    transform: translateY(-1px);
-}
+    /* Botones */
+    .btn {
+        padding: 8px 16px;
+        border-radius: 5px;
+        text-transform: uppercase;
+        font-size: 0.875rem;
+        font-weight: bold;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
 
-.btn-danger {
-    background-color: #dc3545;
-    border: none;
-    color: #ffffff;
-    padding: 8px 16px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
+    .btn-add-category {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        margin-bottom: 1rem;
+        text-decoration: none;
+        display: inline-block;
+        padding: 10px 20px;
+    }
 
-.btn-danger:hover {
-    background-color: #c82333;
-    transform: translateY(-1px);
-}
+        .btn-add-category:hover {
+            background-color: #0056b3;
+            transform: translateY(-1px);
+        }
 
-.btn-secondary {
-    background-color: #6c757d;
-    border: none;
-    color: #ffffff;
-    padding: 8px 16px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
+    .btn-success {
+        background-color: #28a745;
+        color: #fff;
+    }
 
-.btn-secondary:hover {
-    background-color: #5a6268;
-    transform: translateY(-1px);
-}
+    .btn-warning {
+        background-color: #ffc107;
+        color: #212529;
+    }
 
+    .btn-danger {
+        background-color: #dc3545;
+        color: #fff;
+    }
 
-.table tbody td.actions {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
+    .btn-secondary {
+        background-color: #6c757d;
+        color: #fff;
+    }
+
+    .btn:hover {
+        transform: translateY(-1px);
+    }
+
+    .no-data {
+        font-size: 1.2rem;
+        text-align: center;
+        color: #999;
+    }
+
 </style>

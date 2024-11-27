@@ -5,7 +5,9 @@
         List<T> GetAllCategoria();              
         T GetCategoriaById(int id);               
         bool InsertNewCategoria(T categoria);     
-        bool UpdateCategoria(T categoria);        
+        bool UpdateCategoria(T categoria);
+        
+        bool DeleteCategoriaById(int id);
   
     }
 }

@@ -1,4 +1,8 @@
 ﻿@model DonChamol.Models.MenuItems
+@{
+    ViewData["Title"] = "Crear Item";
+    ViewData["ShowFooter"] = false;
+}
 
 <form asp-action="EditMenuItems" method="post">
     <input asp-for="id_Menu" type="hidden" />

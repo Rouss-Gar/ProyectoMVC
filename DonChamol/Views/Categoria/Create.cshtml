@@ -2,23 +2,103 @@
 
 @{
     ViewData["Title"] = "Crear Nueva Categoría";
+    ViewData["ShowFooter"] = false;
 }
 
-<h2>Crear Nueva Categoría</h2>
+<h2 class="form-title">Crear Nueva Categoría</h2>
 
-<!-- Formulario directo sin modal -->
-<div class="container">
+<div class="form-container">
     <form asp-action="Create" method="post">
-        <div class="mb-3">
-            <label asp-for="Nombre" class="form-label"></label>
-            <input asp-for="Nombre" class="form-control" required />
-            <span asp-validation-for="Nombre" class="text-danger"></span>
+        <div class="form-group">
+            <label asp-for="Nombre" class="form-label">Nombre</label>
+            <input asp-for="Nombre" class="form-input" required />
+            <span asp-validation-for="Nombre" class="form-error"></span>
         </div>
-        <div class="mb-3">
-            <label asp-for="Descripcion" class="form-label"></label>
-            <textarea asp-for="Descripcion" class="form-control" required></textarea>
-            <span asp-validation-for="Descripcion" class="text-danger"></span>
+        <div class="form-group">
+            <label asp-for="Descripcion" class="form-label">Descripción</label>
+            <textarea asp-for="Descripcion" class="form-textarea" rows="4" required></textarea>
+            <span asp-validation-for="Descripcion" class="form-error"></span>
         </div>
-        <button type="submit" class="btn btn-primary">Agregar Categoria</button>
+        <button type="submit" class="btn-submit">Agregar Categoría</button>
     </form>
 </div>
+<style>
+    /* Contenedor del formulario */
+    .form-container {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f9fafb;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border: 1px solid #ddd;
+    }
+
+    /* Título */
+    .form-title {
+        font-size: 1.8rem;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 1.5rem;
+        color: #333;
+    }
+
+    /* Campos del formulario */
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #007bff;
+    }
+
+    .form-input,
+    .form-textarea {
+        width: 100%;
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        outline: none;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        background-color: #ffffff;
+    }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+    /* Botón de enviar */
+    .btn-submit {
+        width: 100%;
+        padding: 10px 15px;
+        font-size: 1rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+        .btn-submit:hover {
+            background-color: #0056b3;
+            transform: translateY(-1px);
+        }
+
+    /* Validaciones */
+    .form-error {
+        font-size: 0.875rem;
+        color: #dc3545;
+        margin-top: 0.25rem;
+    }
+
+</style>

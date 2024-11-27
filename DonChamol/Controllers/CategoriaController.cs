@@ -50,6 +50,20 @@ namespace DonChamol.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteCategoriaById(int id)
+        {
+            bool isDeleted = _repository.DeleteCategoriaById(id);
+            if (isDeleted)
+            {
+                return RedirectToAction("GetAllCategoria");
+            }
+            ModelState.AddModelError("", "No se pudo eliminar la categoría."); // Manejar el error adecuadamente
+            return View(); // Regresar a la vista con el error
+        }
+
+
+        [HttpPost]
         public IActionResult ToggleEstado(int id)
         {
             var categoria = _repository.GetCategoriaById(id);

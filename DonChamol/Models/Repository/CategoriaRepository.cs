@@ -112,6 +112,44 @@ namespace DonChamol.Models.Repository
             return result;
         }
 
+        public bool DeleteCategoriaById(int id)
+        {
+            bool result = false;
+
+            using (SqlConnection connection = new SqlConnection(BDConnection.Connection()))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("DeleteCategoriaById", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    // Parámetro de entrada
+                    cmd.Parameters.AddWithValue("@id_Categoria", id);
+
+                    // Parámetro de salida
+                    SqlParameter outputResult = new SqlParameter("@Result", SqlDbType.Bit)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    cmd.Parameters.Add(outputResult);
+
+                    // Ejecutar el comando
+                    cmd.ExecuteNonQuery();
+
+                    // Obtener el valor de salida
+                    result = Convert.ToBoolean(outputResult.Value);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error al eliminar la Categoria", ex);
+                }
+            }
+
+            return result;
+        }
+
+
         public bool UpdateCategoria(Categoria categoria)
         {
             bool result = false;

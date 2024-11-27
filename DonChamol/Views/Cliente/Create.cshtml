@@ -2,65 +2,139 @@
 
 @{
     ViewData["Title"] = "Crear Nuevo Cliente";
+    ViewData["ShowFooter"] = false;
 }
 
-<h2>Crear Nuevo Cliente</h2>
+<h2 class="form-title">Crear Nuevo Cliente</h2>
 
-<!-- Botón para abrir el modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createClientModal">
-    Agregar Cliente
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="createClientModal" tabindex="-1" aria-labelledby="createClientModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="createClientModalLabel">Nuevo Cliente</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form asp-action="Create" method="post">
-                    <div class="mb-3">
-                        <label asp-for="Nombre" class="form-label"></label>
-                        <input asp-for="Nombre" class="form-control" required />
-                        <span asp-validation-for="Nombre" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label asp-for="Apellido" class="form-label"></label>
-                        <input asp-for="Apellido" class="form-control" required />
-                        <span asp-validation-for="Apellido" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label asp-for="Telefono" class="form-label"></label>
-                        <input asp-for="Telefono" class="form-control" required />
-                    </div>
-                    <div class="mb-3">
-                        <label asp-for="Correo" class="form-label"></label>
-                        <input asp-for="Correo" class="form-control" required />
-                        <span asp-validation-for="Correo" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label asp-for="Direccion" class="form-label"></label>
-                        <textarea asp-for="Direccion" class="form-control" required></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label asp-for="FechaRegistro" class="form-label"></label>
-                        <input asp-for="FechaRegistro" class="form-control" type="date" required />
-                        <span asp-validation-for="FechaRegistro" class="text-danger"></span>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primary">Agregar Cliente</button>
-                    </div>
-                </form>
-            </div>
+<div class="form-container">
+    <form asp-action="Create" method="post">
+        <div class="form-group">
+            <label asp-for="Nombre" class="form-label">Nombre</label>
+            <input asp-for="Nombre" class="form-input" required />
+            <span asp-validation-for="Nombre" class="form-error"></span>
         </div>
-    </div>
+        <div class="form-group">
+            <label asp-for="Apellido" class="form-label">Apellido</label>
+            <input asp-for="Apellido" class="form-input" required />
+            <span asp-validation-for="Apellido" class="form-error"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Telefono" class="form-label">Teléfono</label>
+            <input asp-for="Telefono" class="form-input" required />
+            <span asp-validation-for="Telefono" class="form-error"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Correo" class="form-label">Correo Electrónico</label>
+            <input asp-for="Correo" class="form-input" required />
+            <span asp-validation-for="Correo" class="form-error"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Direccion" class="form-label">Dirección</label>
+            <textarea asp-for="Direccion" class="form-textarea" rows="3" required></textarea>
+            <span asp-validation-for="Direccion" class="form-error"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="FechaRegistro" class="form-label">Fecha de Registro</label>
+            <input asp-for="FechaRegistro" class="form-input" type="date" required />
+            <span asp-validation-for="FechaRegistro" class="form-error"></span>
+        </div>
+        <button type="submit" class="btn-submit">Agregar Cliente</button>
+    </form>
 </div>
-@section Scripts {
-    @await Html.PartialAsync("_ValidationScriptsPartial")
-}
 
-<a href="@Url.Action("GetAllCliente", "Cliente")" class="btn btn-link">Volver a la lista de clientes</a>
+<a href="@Url.Action("GetAllCliente", "Cliente")" class="btn-link">Volver a la lista de clientes</a>
+
+<style>
+    /* Contenedor del formulario */
+    .form-container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f9fafb;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border: 1px solid #ddd;
+    }
+
+    /* Título */
+    .form-title {
+        font-size: 1.8rem;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 1.5rem;
+        color: #333;
+    }
+
+    /* Campos del formulario */
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #007bff;
+    }
+
+    .form-input,
+    .form-textarea {
+        width: 100%;
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        outline: none;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        background-color: #ffffff;
+    }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+    /* Botón de enviar */
+    .btn-submit {
+        width: 100%;
+        padding: 10px 15px;
+        font-size: 1rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+        .btn-submit:hover {
+            background-color: #0056b3;
+            transform: translateY(-1px);
+        }
+
+    /* Botón de volver */
+    .btn-link {
+        display: block;
+        text-align: center;
+        margin-top: 1rem;
+        color: #007bff;
+        text-decoration: none;
+        font-size: 1rem;
+    }
+
+        .btn-link:hover {
+            text-decoration: underline;
+        }
+
+    /* Validaciones */
+    .form-error {
+        font-size: 0.875rem;
+        color: #dc3545;
+        margin-top: 0.25rem;
+    }
+</style>

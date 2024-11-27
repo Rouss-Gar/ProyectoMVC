@@ -7,7 +7,6 @@
     <div class="text-center mb-5">
         <h1 class="display-4 text-light">Bienvenido a Don Chamol</h1>
         <p class="lead">Descubre la auténtica comida nicaragüense en un ambiente acogedor y tradicional.</p>
-        <a href="/Menu" class="btn btn-primary btn-lg custom-button">Ver Menú</a>
     </div>
 
    
@@ -53,28 +52,69 @@
             </div>
         </div>
     </div>
-
-
     <section class="mt-5 py-5">
         <div class="container text-center">
             <h2 class="text-bold">¿Por qué elegir Don Chamol?</h2>
-            <p class="lead mb-4 text-secondary">Ofrecemos una experiencia única de sabores nicaragüenses, tradición y hospitalidad.</p>
+            <p class="lead mb-4 text-white">Ofrecemos una experiencia única de sabores nicaragüenses, tradición y hospitalidad.</p>
             <div class="row">
                 <div class="col-md-4">
-                    <h5 class="text-primary">Ambiente Acogedor</h5>
-                    <p class="text-secondary">Un espacio diseñado para que te sientas en casa, con una decoración que refleja nuestra cultura.</p>
+                    <h5 style="color: #EE6C4D;">Ambiente Acogedor</h5>
+                    <p class="text-white">Un espacio diseñado para que te sientas en casa, con una decoración que refleja nuestra cultura.</p>
                 </div>
                 <div class="col-md-4">
-                    <h5 class="text-primary">Ingredientes Frescos</h5>
-                    <p class="text-secondary">Todos nuestros platos se preparan con ingredientes locales de la más alta calidad.</p>
+                    <h5 style="color: #EE6C4D;">Ingredientes Frescos</h5>
+                    <p class="text-white">Todos nuestros platos se preparan con ingredientes locales de la más alta calidad.</p>
                 </div>
                 <div class="col-md-4">
-                    <h5 class="text-primary">Atención Amable</h5>
-                    <p class="text-secondary">Nuestro personal te atenderá siempre con una sonrisa y dispuesto a ofrecer el mejor servicio.</p>
+                    <h5 style="color: #EE6C4D;">Atención Amable</h5>
+                    <p class="text-white">Nuestro personal te atenderá siempre con una sonrisa y dispuesto a ofrecer el mejor servicio.</p>
                 </div>
             </div>
         </div>
-    </section>
+        <section class="don-chamol-highlight">
+            <div class="highlight-wrapper">
+                <div class="highlight-details">
+                    <h2>¿Por qué elegir <span class="highlight-title">Don Chamol?</span></h2>
+                    <p>
+                        Don Chamol te invita a disfrutar de una experiencia culinaria única que combina tradición, sabor y hospitalidad.
+                        Somos tu lugar ideal para descubrir la auténtica esencia de la cocina nicaragüense.
+                    </p>
+                    <ul class="highlight-features">
+                        <li>Platos preparados con ingredientes frescos y locales.</li>
+                        <li>Ambiente acogedor que refleja la cultura nicaragüense.</li>
+                        <li>Atención personalizada para cada cliente.</li>
+                        <li>Opciones variadas para todos los gustos y ocasiones.</li>
+                    </ul>
+                    <a href="/menu" class="highlight-button">Explorar Menú</a>
+                </div>
+                <div class="highlight-image-container">
+                    <img src="assets/don-chamol-menu.png" alt="Platos destacados de Don Chamol" />
+                </div>
+            </div>
+        </section>
+
+        <section class="don-chamol-experience">
+            <div class="experience-wrapper">
+                <div class="experience-image-container">
+                    <img src="assets/don-chamol-experience.png" alt="Ambiente de Don Chamol" />
+                </div>
+                <div class="experience-details">
+                    <h2>La experiencia <span class="experience-title">Don Chamol</span></h2>
+                    <p>
+                        Más que un restaurante, Don Chamol es un espacio donde la gastronomía se convierte en una experiencia inolvidable.
+                        Desde nuestras recetas tradicionales hasta nuestra atención excepcional, queremos que cada visita sea especial.
+                    </p>
+                    <ul class="experience-features">
+                        <li>Eventos temáticos y culturales.</li>
+                        <li>Espacios ideales para reuniones familiares o de negocios.</li>
+                        <li>Compromiso con la sostenibilidad y la comunidad local.</li>
+                        <li>Promociones y ofertas especiales todo el año.</li>
+                    </ul>
+                    <a href="/reservaciones" class="experience-button">Reservar Mesa</a>
+                </div>
+            </div>
+        </section>
+
 </div>
 <style>
    
@@ -185,5 +225,176 @@
         font-size: 0.85rem;
         color: #fffafa;
     }
+
+    /* Estilo para la sección Don Chamol Highlight */
+    .don-chamol-highlight {
+        color: #fff;
+        padding: 3rem 1.5rem;
+    }
+
+    .highlight-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .highlight-details {
+        flex: 1;
+        text-align: left;
+    }
+
+        .highlight-details h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .highlight-details p {
+            font-size: 1.25rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            color: #ddd;
+        }
+
+    .highlight-title {
+        color: #EE6C4D;
+    }
+
+    .highlight-features {
+        list-style-type: none;
+        padding: 0;
+        margin-bottom: 2rem;
+    }
+
+        .highlight-features li {
+            font-size: 1.125rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+            .highlight-features li::before {
+                content: "✔";
+                color: #EE6C4D;
+                font-size: 1.5rem;
+            }
+
+    .highlight-button {
+        padding: 1rem 2rem;
+        background-color: #EE6C4D;
+        color: #fff;
+        border: none;
+        border-radius: 25px;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+        .highlight-button:hover {
+            background-color: #FF9475;
+            transform: scale(1.1);
+        }
+
+    .highlight-image-container {
+        flex: 1;
+    }
+
+        .highlight-image-container img {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+    /* Estilo para la sección Don Chamol Experience */
+    .don-chamol-experience {
+        color: #fff;
+        padding: 3rem 1.5rem;
+    }
+
+    .experience-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .experience-details {
+        flex: 1;
+        text-align: left;
+    }
+
+        .experience-details h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .experience-details p {
+            font-size: 1.25rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            color: #ddd;
+        }
+
+    .experience-title {
+        color: #EE6C4D;
+    }
+
+    .experience-features {
+        list-style-type: none;
+        padding: 0;
+        margin-bottom: 2rem;
+    }
+
+        .experience-features li {
+            font-size: 1.125rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+            .experience-features li::before {
+                content: "✔";
+                color: #EE6C4D;
+                font-size: 1.5rem;
+            }
+
+    .experience-button {
+        padding: 1rem 2rem;
+        background-color: #EE6C4D;
+        color: #fff;
+        border: none;
+        border-radius: 25px;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+        .experience-button:hover {
+            background-color: #FF9475;
+            transform: scale(1.1);
+        }
+
+    .experience-image-container {
+        flex: 1;
+    }
+
+        .experience-image-container img {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
 
 </style>

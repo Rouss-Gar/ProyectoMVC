@@ -1,17 +1,26 @@
 ﻿@model List<DonChamol.Models.Categoria>
 
-<h2>Categorías</h2>
-<a asp-action="Create" class="btn btn-primary">Agregar Nueva Categoría</a>
+@{
+    ViewData["Title"] = "Lista de Categorías";
+    ViewData["ShowFooter"] = false;
+}
+
+<h1 class="title">Lista de Categorías</h1>
+
+<!-- Botón para agregar una nueva categoría -->
+<a asp-action="Create" class="btn btn-add-category">
+    <i class="fas fa-plus"></i> Agregar Categoría
+</a>
 
 <div class="table-container">
     <table class="table">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Descripción</th>
-                <th>Estado</th>
-                <th>Acciones</th>
+                <th><i class="fas fa-hashtag"></i> ID</th>
+                <th><i class="fas fa-tag"></i> Nombre</th>
+                <th><i class="fas fa-align-left"></i> Descripción</th>
+                <th><i class="fas fa-check-circle"></i> Estado</th>
+                <th><i class="fas fa-cogs"></i> Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -21,15 +30,22 @@
                 {
                     <tr>
                         <td>@categoria.id_Categoria</td>
-                        <td>@categoria.Nombre</td>
-                        <td>@categoria.Descripcion</td>
-                        <td>@(categoria.Estado ? "Activo" : "Inactivo")</td>
+                        <td>@categoria.Nombre?.Trim()</td>
+                        <td>@categoria.Descripcion?.Trim()</td>
+                        <td>
+                            <button class="btn @(categoria.Estado ? "btn-success" : "btn-warning")">
+                                <i class="fas @(categoria.Estado ? "fa-check" : "fa-times")"></i>
+                                @(categoria.Estado ? "Activo" : "Inactivo")
+                            </button>
+                        </td>
                         <td class="actions">
-                            <a asp-action="GetCategoriaById" asp-route-id="@categoria.id_Categoria" class="btn btn-warning">Editar</a>
-
+                            <a asp-action="GetCategoriaById" asp-route-id="@categoria.id_Categoria" class="btn btn-primary btn-sm" title="Editar">
+                                <i class="fas fa-edit"></i>
+                            </a>
+          
                             <form asp-action="ToggleEstado" asp-route-id="@categoria.id_Categoria" method="post" style="display:inline;">
-                                <button type="submit" class="btn btn-secondary">
-                                    @(categoria.Estado ? "Desactivar" : "Activar")
+                                <button type="submit" class="btn btn-secondary btn-sm" title="Cambiar Estado">
+                                    <i class="fas @(categoria.Estado ? "fa-toggle-on" : "fa-toggle-off")"></i>
                                 </button>
                             </form>
                         </td>
@@ -39,112 +55,141 @@
             else
             {
                 <tr>
-                    <td colspan="5">No hay categorías disponibles.</td>
+                    <td colspan="5" class="no-data">No hay categorías disponibles.</td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
-
 <style>
-  
-.table-container {
-    max-height: 400px;
-    overflow-y: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+    /* Estilos Generales */
+    .title {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
 
+    /* Contenedor de la tabla con barra de desplazamiento */
+    .table-container {
+        max-height: 400px;
+        overflow-y: auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-top: 1rem;
+        border: 1px solid #ddd;
+    }
 
-.table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 16px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    overflow: hidden;
-}
+        .table-container::-webkit-scrollbar {
+            width: 8px;
+        }
 
+        .table-container::-webkit-scrollbar-thumb {
+            background: #007bff;
+            border-radius: 4px;
+        }
 
-.table thead {
-    position: sticky;
-    top: 0;
-    background-color: #007bff;
-    color: #ffffff;
-    z-index: 1;
-}
+            .table-container::-webkit-scrollbar-thumb:hover {
+                background: #0056b3;
+            }
 
-.table thead th {
-    padding: 12px;
-    font-weight: bold;
-    text-align: center;
-    border-bottom: 2px solid #ddd;
-    text-transform: uppercase;
-}
+        .table-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
 
+    /* Tabla */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 1rem;
+        background-color: #ffffff;
+        border-radius: 8px;
+        overflow: hidden;
+    }
 
-.table tbody tr:nth-child(even) {
-    background-color: #f9fafb;
-}
+        .table thead {
+            position: sticky;
+            top: 0;
+            background-color: #007bff;
+            color: #ffffff;
+            z-index: 1;
+        }
 
-.table tbody tr:hover {
-    background-color: #e6f2ff;
-    transition: background-color 0.3s ease;
-}
+            .table thead th {
+                padding: 12px;
+                font-weight: bold;
+                text-align: center;
+                text-transform: uppercase;
+            }
 
-.table tbody td {
-    padding: 12px;
-    text-align: center;
-    border-bottom: 1px solid #ddd;
-}
+        .table tbody tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
 
+        .table tbody tr:hover {
+            background-color: #e6f2ff;
+            transition: background-color 0.3s ease;
+        }
 
-.btn-primary {
-    background-color: #007bff;
-    border: none;
-    color: #ffffff;
-    padding: 8px 16px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
+        .table tbody td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
 
-.btn-primary:hover {
-    background-color: #0056b3;
-    transform: translateY(-1px);
-}
+    /* Botones */
+    .btn {
+        padding: 8px 16px;
+        border-radius: 5px;
+        text-transform: uppercase;
+        font-size: 0.875rem;
+        font-weight: bold;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
 
-.btn-warning {
-    background-color: #ffc107;
-    border: none;
-    color: #212529;
-    padding: 8px 16px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
+    .btn-add-category {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        margin-bottom: 1rem;
+        text-decoration: none;
+        display: inline-block;
+        padding: 10px 20px;
+    }
 
-.btn-warning:hover {
-    background-color: #e0a800;
-    transform: translateY(-1px);
-}
+        .btn-add-category:hover {
+            background-color: #0056b3;
+            transform: translateY(-1px);
+        }
 
-.btn-secondary {
-    background-color: #6c757d;
-    border: none;
-    color: #ffffff;
-    padding: 8px 16px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
+    .btn-success {
+        background-color: #28a745;
+        color: #fff;
+    }
 
-.btn-secondary:hover {
-    background-color: #5a6268;
-    transform: translateY(-1px);
-}
+    .btn-warning {
+        background-color: #ffc107;
+        color: #212529;
+    }
 
+    .btn-danger {
+        background-color: #dc3545;
+        color: #fff;
+    }
 
-.table tbody td.actions {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
+    .btn-secondary {
+        background-color: #6c757d;
+        color: #fff;
+    }
+
+    .btn:hover {
+        transform: translateY(-1px);
+    }
+
+    .no-data {
+        font-size: 1.2rem;
+        text-align: center;
+        color: #999;
+    }
+
 </style>

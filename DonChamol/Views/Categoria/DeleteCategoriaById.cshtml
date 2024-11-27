@@ -1,0 +1,112 @@
+﻿@model DonChamol.Models.Categoria
+
+@{
+    ViewData["Title"] = "Eliminar Categoría";
+    ViewData["ShowFooter"] = false;
+}
+
+<h2 class="form-title">Eliminar Categoría</h2>
+
+<div class="alert alert-warning">
+    <p>¿Estás seguro de que deseas eliminar esta categoría?</p>
+</div>
+
+<table class="table table-striped">
+    <tr>
+        <th>ID</th>
+        <td>@Model.id_Categoria</td>
+    </tr>
+    <tr>
+        <th>Nombre</th>
+        <td>@Model.Nombre</td>
+    </tr>
+    <tr>
+        <th>Descripción</th>
+        <td>@Model.Descripcion</td>
+    </tr>
+</table>
+
+<form asp-action="DeleteCategoriaById" method="post" class="form-container">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="id_Categoria" />
+    <button type="submit" class="btn-submit btn-danger">Eliminar</button>
+    <a asp-action="GetAllCategoria" class="btn-link btn-secondary">Cancelar</a>
+</form>
+
+
+<style>
+    /* Título estilizado */
+    .form-title {
+        font-size: 1.8rem;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 1.5rem;
+        color: #333;
+    }
+
+    /* Contenedor del formulario */
+    .form-container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #f9fafb;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border: 1px solid #ddd;
+    }
+
+    /* Botón de eliminar */
+    .btn-danger {
+        background-color: #dc3545;
+        border: none;
+        color: #fff;
+        padding: 10px 15px;
+        font-size: 1rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-danger:hover {
+            background-color: #a71d2a;
+        }
+
+    /* Botón de cancelar */
+    .btn-secondary {
+        display: inline-block;
+        margin-left: 10px;
+        padding: 10px 15px;
+        font-size: 1rem;
+        font-weight: bold;
+        text-decoration: none;
+        text-transform: uppercase;
+        color: #fff;
+        background-color: #6c757d;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+    /* Tabla */
+    .table {
+        margin-top: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        width: 100%;
+    }
+
+        .table th {
+            text-align: left;
+            color: #007bff;
+        }
+
+        .table td {
+            padding: 10px;
+            color: #333;
+        }
+</style>
