@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using DonChamol.Models;
-using NuGet.Protocol.Core.Types;
-using DonChamol.Models.Repository;
+﻿using DonChamol.Models;
+using Microsoft.AspNetCore.Mvc;
 
 
 namespace DonChamol.Controllers

@@ -15,6 +15,9 @@ public class OrdenController : Controller
     [HttpGet]
     public IActionResult Create()
     {
+
+
+
         var clientes = _repository.GetAllCliente()
             .Select(c => new { c.id_Cliente, c.Nombre }).ToList();
         var meseros = _repository.GetAllMeseros()
@@ -27,7 +30,7 @@ public class OrdenController : Controller
         if (!clientes.Any() || !meseros.Any() || !mesas.Any() || !menuItems.Any())
         {
             TempData["Error"] = "Datos insuficientes para crear una orden. Verifica que haya clientes, meseros, mesas y menús disponibles.";
-            return RedirectToAction("Index");
+            return RedirectToAction("GetAllOrdenes");
         }
 
         ViewBag.Cliente = clientes;
@@ -58,11 +61,36 @@ public class OrdenController : Controller
             return View(nuevaOrden);
         }
 
-        // Aquí tu lógica para guardar la orden
-        TempData["Success"] = "Orden creada exitosamente.";
+        try
+        {
+            _repository.InsertNewOrden(nuevaOrden); // Llama al método para guardar la orden
+            TempData["Success"] = "Orden creada exitosamente.";
+        }
+        catch (Exception ex)
+        {
+            TempData["Error"] = $"Error al guardar la orden: {ex.Message}";
+            return View(nuevaOrden); // Si hay error, regresa a la vista con la orden
+        }
+
         return RedirectToAction("GetAllOrdenes");
     }
 
+    [HttpDelete("{idOrden}")]
+    public IActionResult EliminarOrden(int idOrden)
+    {
+        if (idOrden <= 0)
+        {
+            return BadRequest("El ID de la orden debe ser un número positivo.");
+        }
 
+        bool resultado = _repository.DeleteOrdenById(idOrden);
+
+        if (resultado)
+        {
+            return RedirectToAction("GetAllOrdenes");
+        }
+
+        return StatusCode(500, new { mensaje = "No se pudo eliminar la orden. Por favor, intente nuevamente." });
+    }
 
 }

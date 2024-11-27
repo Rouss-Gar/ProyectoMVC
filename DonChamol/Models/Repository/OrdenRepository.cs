@@ -216,6 +216,59 @@ public class OrdenRepository : IOrdenRepository<Orden>
     }
 
 
+    public bool DeleteOrdenById(int idOrden)
+    {
+        bool resultado = false; // Inicializa el resultado en false
+
+        try
+        {
+            using (SqlConnection connection = new SqlConnection(BDConnection.Connection()))
+            {
+                using (SqlCommand command = new SqlCommand("[dbo].[USP_EliminarOrden]", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    // Agregar el parámetro de entrada
+                    command.Parameters.AddWithValue("@id_Orden", idOrden);
+
+                    // Agregar el parámetro de salida
+                    SqlParameter resultParam = new SqlParameter("@Result", SqlDbType.Bit)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    command.Parameters.Add(resultParam);
+
+                    // Abrir la conexión
+                    connection.Open();
+
+                    // Ejecutar el comando
+                    command.ExecuteNonQuery();
+
+                    // Obtener el valor del parámetro de salida
+                    resultado = Convert.ToBoolean(resultParam.Value);
+                }
+            }
+        }
+        catch (SqlException ex)
+        {
+            // Manejar errores específicos de SQL
+            Console.WriteLine($"Error SQL: {ex.Message}");
+            resultado = false;
+        }
+        catch (Exception ex)
+        {
+            // Manejar errores generales
+            Console.WriteLine($"Error: {ex.Message}");
+            resultado = false;
+        }
+
+        return resultado;
+    }
+
+
+
+
+
 
     List<Orden> IOrdenRepository<Orden>.GetAllOrden()
     {
@@ -237,8 +290,4 @@ public class OrdenRepository : IOrdenRepository<Orden>
         throw new NotImplementedException();
     }
 
-    public bool DeleteOrdenById(int id)
-    {
-        throw new NotImplementedException();
-    }
 }
