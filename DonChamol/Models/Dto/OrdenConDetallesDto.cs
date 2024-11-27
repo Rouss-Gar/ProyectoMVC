@@ -7,6 +7,7 @@
         public string ClienteNombre { get; set; }
         public int id_Mesero { get; set; }
         public string MeseroNombre { get; set; }
+        public int id_Menu { get; set; }
         public int id_Mesa { get; set; }
         public DateTime Fecha { get; set; }
         public decimal Total { get; set; }
