@@ -45,35 +45,52 @@ public class OrdenController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Create(Orden nuevaOrden)
+    public IActionResult Create(Orden nuevaOrden, List<DetalleOrden> detalles)
     {
         if (!ModelState.IsValid)
         {
             ViewBag.Cliente = _repository.GetAllCliente()
-                .Select(c => new { c.id_Cliente, c.Nombre }).ToList();
+                ?.Select(c => new Cliente { id_Cliente = c.id_Cliente, Nombre = c.Nombre }).ToList()
+                ?? new List<Cliente>();
+
             ViewBag.Meseros = _repository.GetAllMeseros()
-                .Select(m => new { m.id_Mesero, m.Nombre }).ToList();
+                ?.Select(m => new Meseros { id_Mesero = m.id_Mesero, Nombre = m.Nombre }).ToList()
+                ?? new List<Meseros>();
+
             ViewBag.Mesas = _repository.GetAllMesas()
-                .Select(m => new { m.id_Mesa, Numero = m.Numero_Mesa }).ToList();
+                ?.Select(m => new Mesas { id_Mesa = m.id_Mesa, Numero_Mesa = m.Numero_Mesa }).ToList()
+                ?? new List<Mesas>();
+
             ViewBag.MenuItems = _repository.GetAllMenuItems()
-                .Select(m => new { m.id_Menu, m.Nombre, m.Precio }).ToList();
+                ?.Select(m => new MenuItems { id_Menu = m.id_Menu, Nombre = m.Nombre, Precio = m.Precio }).ToList()
+                ?? new List<MenuItems>();
 
             return View(nuevaOrden);
         }
 
         try
         {
-            _repository.InsertNewOrden(nuevaOrden); // Llama al método para guardar la orden
-            TempData["Success"] = "Orden creada exitosamente.";
+            bool isInserted = _repository.InsertNewOrden(nuevaOrden, detalles);
+
+            if (isInserted)
+            {
+                TempData["Success"] = "Orden creada exitosamente.";
+            }
+            else
+            {
+                TempData["Error"] = "No se pudo crear la orden. Inténtelo nuevamente.";
+                return View(nuevaOrden);
+            }
         }
         catch (Exception ex)
         {
             TempData["Error"] = $"Error al guardar la orden: {ex.Message}";
-            return View(nuevaOrden); // Si hay error, regresa a la vista con la orden
+            return View(nuevaOrden);
         }
 
         return RedirectToAction("GetAllOrdenes");
     }
+
 
     [HttpDelete("{idOrden}")]
     public IActionResult EliminarOrden(int idOrden)

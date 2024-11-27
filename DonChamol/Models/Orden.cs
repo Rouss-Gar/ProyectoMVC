@@ -7,7 +7,7 @@
         public int id_Mesero { get; set; }
         public int id_Mesa { get; set; }
         public int id_Menu { get; set; }
-        public DateTime Fecha_Orden { get; set; }
+        public DateTime Fecha_Orden { get; set; } = DateTime.Now;
         public decimal Total { get; set; }
     }
 }

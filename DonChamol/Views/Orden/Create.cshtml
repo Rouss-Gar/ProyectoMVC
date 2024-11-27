@@ -23,7 +23,6 @@
         @Html.ValidationMessageFor(m => m.id_Cliente, "", new { @class = "text-danger" })
     </div>
 
-
     <!-- Selección de Mesero -->
     <div class="form-group">
         @Html.LabelFor(m => m.id_Mesero, "Mesero")
@@ -38,11 +37,18 @@
         @Html.ValidationMessageFor(m => m.id_Mesa, "", new { @class = "text-danger" })
     </div>
 
-    <!-- Selección del menu -->
+    <!-- Selección del Menú -->
     <div class="form-group">
         @Html.LabelFor(m => m.id_Menu, "Menú")
         @Html.DropDownListFor(m => m.id_Menu, new SelectList(ViewBag.MenuItems, "id_Menu", "Nombre"), "Seleccione un Menú", new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.id_Menu, "", new { @class = "text-danger" })
+    </div>
+
+    <!-- Campo de Fecha de la Orden -->
+    <div class="form-group">
+        @Html.LabelFor(m => m.Fecha_Orden, "Fecha de la Orden")
+        @Html.TextBoxFor(m => m.Fecha_Orden, new { @class = "form-control", @type = "date" })
+        @Html.ValidationMessageFor(m => m.Fecha_Orden, "", new { @class = "text-danger" })
     </div>
 
     <!-- Campo de Total (si es necesario) -->

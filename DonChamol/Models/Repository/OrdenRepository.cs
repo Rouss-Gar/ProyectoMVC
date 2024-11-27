@@ -181,8 +181,7 @@ public class OrdenRepository : IOrdenRepository<Orden>
         return listMenuItems;
     }
 
-    // Insertar orden
-    public bool InsertOrden(Orden orden, List<OrdenDetalle> ordenDetalles)
+    public bool InsertNewOrden(Orden orden, List<DetalleOrden> detalles)
     {
         bool result = false;
 
@@ -193,23 +192,48 @@ public class OrdenRepository : IOrdenRepository<Orden>
                 SqlCommand cmd = new SqlCommand("InsertNewOrden", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
 
+                // Parámetros para la orden principal
                 cmd.Parameters.AddWithValue("@id_Cliente", orden.id_Cliente);
                 cmd.Parameters.AddWithValue("@id_Mesero", orden.id_Mesero);
                 cmd.Parameters.AddWithValue("@id_Mesa", orden.id_Mesa);
-                cmd.Parameters.AddWithValue("@id_Menu", orden.id_Menu); // Aquí agregamos el id_Menu
                 cmd.Parameters.AddWithValue("@Fecha_Orden", orden.Fecha_Orden);
-                cmd.Parameters.AddWithValue("@Total", orden.Total);
 
+                // Crear el DataTable para el tipo de tabla de detalles
+                DataTable detallesTable = new DataTable();
+                detallesTable.Columns.Add("id_Menu", typeof(int));
+                detallesTable.Columns.Add("Cantidad", typeof(int));
+                detallesTable.Columns.Add("Precio", typeof(decimal));
+
+                foreach (var detalle in detalles)
+                {
+                    detallesTable.Rows.Add(detalle.id_Menu, detalle.Cantidad, detalle.Precio);
+                }
+
+                // Parámetro de tipo tabla
+                SqlParameter detallesParam = new SqlParameter("@Detalles", SqlDbType.Structured);
+                detallesParam.TypeName = "DetalleOrdenType";
+                detallesParam.Value = detallesTable;
+                cmd.Parameters.Add(detallesParam);
+
+                // Parámetro de salida
+                SqlParameter resultParam = new SqlParameter("@Result", SqlDbType.Bit)
+                {
+                    Direction = ParameterDirection.Output
+                };
+                cmd.Parameters.Add(resultParam);
+
+                // Ejecutar el procedimiento almacenado
                 conn.Open();
-                int rowsAffected = cmd.ExecuteNonQuery();
+                cmd.ExecuteNonQuery();
 
-                result = rowsAffected > 0;
+                // Verificar el resultado del procedimiento almacenado
+                result = (bool)resultParam.Value;
             }
         }
         catch (Exception ex)
         {
-            // Manejo de errores (puedes registrar el error si es necesario).
             Console.WriteLine($"Error al insertar la orden: {ex.Message}");
+            throw new Exception("Error al guardar la orden en la base de datos.", ex);
         }
 
         return result;
@@ -280,10 +304,6 @@ public class OrdenRepository : IOrdenRepository<Orden>
         throw new NotImplementedException();
     }
 
-    public bool InsertNewOrden(Orden orden)
-    {
-        throw new NotImplementedException();
-    }
 
     public bool UpdateOrden(Orden orden)
     {
