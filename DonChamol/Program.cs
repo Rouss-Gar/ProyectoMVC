@@ -22,7 +22,9 @@ builder.Services.AddScoped<IOrdenRepository<Orden>, OrdenRepository>();
 
 builder.Services.AddScoped<IProducto<Producto>, ProductoRepository>();  
 
-builder.Services.AddScoped<IProveedor<Proveedor>, ProveedorRepository>();   
+builder.Services.AddScoped<IProveedor<Proveedor>, ProveedorRepository>();
+builder.Services.AddScoped<IVentasRepositorio, VentasRepositorio>();
+builder.Services.AddScoped<IInventarioRepositorio<Inventario>, InventarioRepositorio>();
 
 
 
